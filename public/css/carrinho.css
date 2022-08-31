@@ -1,0 +1,45 @@
+a{
+    text-decoration: none;
+    color: #000;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    color: #000;
+}
+
+ul{
+    list-style: none;
+}
+
+/*Área de pedidos*/
+
+.containerCarrinho{
+    border: 1px solid;
+    width: 800px;
+    height: 800px;
+    margin: 40px auto;
+}
+
+button{
+    width: 100px;
+    height: 50px;
+}
+
+/*Itens do carrinho */
+
+#carrinhoCart ul{
+    display: flex;
+}
+#carrinhoCart li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px;
+}
+
+#carrinhoCart li img{
+    max-width: 100px;
+}

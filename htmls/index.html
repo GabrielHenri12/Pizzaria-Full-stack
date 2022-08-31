@@ -1,0 +1,53 @@
+
+    
+    <div class="modeloGeral">
+        <div class="modelo">
+            <li>
+                <div class="item">
+                    <img src="" alt="">
+                    <span></span>
+                    <button class="btn">+ADICIONAR</button>
+                </div>
+            </li>
+        </div>
+    </div>
+    <main class="opcoes_Pizza">
+        <section class="menu_pizzas">
+            <h2 class="titulo">Sabores</h2>
+            <div class="areaPizza"><ul class="ul"></ul></div>
+            <div class="pizzaInfo">
+                <div class="container">
+                    <img src="/imagens/fecharMenu.svg" alt="fechar o menu" onclick="fechar()" id="fechar">
+                    <div class="pizza">
+                        <img src="" alt="">
+                        <Span></Span>
+                    </div>
+                    <div class="subContainer">
+                        <div class="descricao">
+                            <p></p>
+                        </div>
+                        <div class="pizzaInfo--sizearea">
+                            <div class="pizzaInfo--sector">Tamanho</div>
+                            <div class="pizzaInfo--sizes">
+                                <div data-key="0" class="pizzaInfo--size">PEQUENA <span>--</span></div>
+                                <div data-key="1" class="pizzaInfo--size">MÉDIO <span>--</span></div>
+                                <div data-key="2" class="pizzaInfo--size selected">GRANDE <span>--</span></div>
+                            </div>
+                        </div>
+                        <div class="pizzaInfo--pricearea">
+                            <div class="pizzaInfo--sector">Preço</div>
+                            <div class="pizzaInfo--price">
+                                <div class="pizzaInfo--actualPrice">R$ --</div>
+                                <div class="pizzaInfo--qtarea">
+                                    <button class="pizzaInfo--qtmenos" onclick="maisMenos('menos')">-</button>
+                                    <div class="pizzaInfo--qt">1</div>
+                                    <button class="pizzaInfo--qtmais" onclick="maisMenos('mais')">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btnFinalizar" onclick="adicionar()">ADICIONAR</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
