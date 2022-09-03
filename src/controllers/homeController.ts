@@ -11,14 +11,11 @@ export const home = async (req:Request, res:Response)=>{
 
 export const opcao = async (req:Request, res:Response)=>{
     let id: number = parseInt(req.params.id)
-    let item = {}
+    let item = await Pizzas.findByPk(id)
+    let listaPizza = await Pizzas.findAll();
 
-    let results = await Pizzas.findAll({where:{id}})
-    if(results.length > 0){
-        item = results[0]
-    }
-    
     res.render("pages/homePage", {
+        listaPizza,
         item
     })
 }

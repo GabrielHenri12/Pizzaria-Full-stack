@@ -201,7 +201,7 @@ aside{
 
 /* Menu Tamanho das pizzas*/
 .pizzaInfo{
-    display: block;
+    display: flex;
     position: fixed;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.719);
     border-radius: 7px;
@@ -299,9 +299,9 @@ aside{
 
 /*Tamanhos*/
 .pizzaInfo--sector {
-    color:#000000;
+    color:#fff;
     text-transform: uppercase;
-    font-size:15px;
+    font-size:15pt;
     margin-top:30px;
     margin-bottom:10px;
 }
@@ -313,34 +313,32 @@ aside{
 
 .pizzaInfo--sizes {
     display:inline-flex;
-    border-radius:10px;
-    overflow:hidden;
-    margin-bottom: 15px;
+    margin-top: 15px;
 }
-.pizzaInfo--size {
-    padding:10px 15px;
+
+label {
+    padding: 15px 15px;
+    margin: 3px;
+    border-radius:10px;
     color: #000;
     background-color:rgb(255, 255, 255);
-    font-size:13px;
+    font-size:15pt;
     font-weight: bold;
-    cursor:pointer;
+    cursor: pointer;
 }
-.pizzaInfo--size:hover {
+label:hover {
     background-color:#CCC;
 }
-.pizzaInfo--size.selected {
+
+.opcao input{
+    display: none;
+}
+input:checked ~ label{
+    color: #ffffff;
     background-color: #399ade;
-    color: #FFFFFF;
-    transition: all ease-in-out .3s;
 }
-.pizzaInfo--size.selected span {
-    color:#ffffff;
-}
-.pizzaInfo--size span {
-    font-size:12px;
-    color:rgb(20, 20, 20);
-    font-weight: normal;
-}
+
+
 .pizzaInfo--price {
     display:flex;
     align-items:center;

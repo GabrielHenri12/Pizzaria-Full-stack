@@ -12,6 +12,7 @@ export interface UserInstance extends Model {
 export const Pizzas = sequelize.define<UserInstance>('Pizzas',{
     id: {
         primaryKey: true,
+        autoIncrement: true,
         type: DataTypes.INTEGER
     },
     sabor: {
@@ -21,7 +22,11 @@ export const Pizzas = sequelize.define<UserInstance>('Pizzas',{
         type: DataTypes.STRING
     },
     tamanho: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        get(){
+            const row = this.getDataValue('tamanho');
+            return JSON.parse(row);
+        }
     },
     valor: {
         type: DataTypes.INTEGER

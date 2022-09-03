@@ -7,5 +7,29 @@
                 <Span>{{sabor}}</Span>
             </div>
         </div>
+        <div class="subContainer">
+            <div class="descricao">
+                <p></p>
+            </div>
+            <div class="pizzaInfo--sizearea">
+                <div class="pizzaInfo--sector">Tamanho</div>
+                <form method="POST" action='/'>
+                    <div class="pizzaInfo--sizes">
+                        <div class="opcao">
+                            <input type="radio" id="tamanho_p" name="tamanho" value="pequena">
+                            <label for="tamanho_p" >Pequena</label>
+                        </div>
+                        <div class="opcao">
+                            <input type="radio" id="tamanho_m" name="tamanho" value="media">
+                            <label for="tamanho_m" >Media</label>
+                        </div>
+                        <div class="opcao">
+                            <input checked type="radio" id="tamanho_g" name="tamanho" value="grande">
+                            <label for="tamanho_g" >Grande</label>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
     </div>
 {{/item}}
