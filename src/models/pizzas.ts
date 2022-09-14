@@ -7,6 +7,8 @@ export interface UserInstance extends Model {
     img: string;
     tamanho: string;
     valor: number;
+    quantidade: number;
+    descricao: string;
 }
 
 export const Pizzas = sequelize.define<UserInstance>('Pizzas',{
@@ -29,6 +31,12 @@ export const Pizzas = sequelize.define<UserInstance>('Pizzas',{
         }
     },
     valor: {
+        type: DataTypes.INTEGER
+    },
+    descricao:{
+        type: DataTypes.STRING
+    },
+    quantidade: {
         type: DataTypes.INTEGER
     }},
     {

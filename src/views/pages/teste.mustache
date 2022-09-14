@@ -1,7 +1,10 @@
 {{>partials/header}}
-
-{{#item}}
-<h1>{{sabor}}</h1>
-{{/item}}
+{{#listaPizza}}
+    {{sabor}}
+{{/listaPizza}}
+<form method="POST" action="/testando">
+    <input type="text" name="nome"/>
+    <button>Enviar</button>
+</form>
 
 {{>partials/footer}}

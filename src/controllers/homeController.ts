@@ -10,8 +10,7 @@ export const home = async (req:Request, res:Response)=>{
 }
 
 export const opcao = async (req:Request, res:Response)=>{
-    let id: number = parseInt(req.params.id)
-    let item = await Pizzas.findByPk(id)
+    let item = await Pizzas.findByPk(parseInt(req.params.id))
     let listaPizza = await Pizzas.findAll();
 
     res.render("pages/homePage", {
@@ -19,3 +18,4 @@ export const opcao = async (req:Request, res:Response)=>{
         item
     })
 }
+

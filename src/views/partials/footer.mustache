@@ -1,5 +1,16 @@
-    
+    <script>
+        let input2 = document.querySelector('.pizzaInfo--qt input');
+        let btnMenos = document.querySelector('.pizzaInfo--qtmenos');
+        let btnMais = document.querySelector('.pizzaInfo--qtmais');
+        let valor = document.querySelector('.pizzaInfo--actualPrice span');
+        let newValue = parseFloat(valor.innerHTML);
+        function atualizandoValor(){ valor.innerHTML = (newValue * input2.value).toFixed(2) };
+
+        btnMenos.addEventListener('click', ()=>{ if(input2.value > 1){ input2.value = parseInt(input2.value) - 1 } atualizandoValor();} );
+        btnMais.addEventListener('click', ()=>{ if(input2.value < 10){ input2.value = parseInt(input2.value) + 1 } atualizandoValor();} );
+    </script>
     <script src="script/menuRetratil.js"></script>
+    
 </body>
 
 </html>

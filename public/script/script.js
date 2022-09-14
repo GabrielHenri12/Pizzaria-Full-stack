@@ -52,6 +52,8 @@ function maisMenos(soma){
     c('.pizzaInfo--qt').innerHTML = qtdPizzas;
     c('.pizzaInfo--actualPrice').innerHTML = 'R$' + valorTot.toFixed(2);
 }
+
+
 let idtamanho = 0
 cAll('.pizzaInfo--size').forEach((size, sizeindex)=>{
     size.addEventListener('click', (e)=>{

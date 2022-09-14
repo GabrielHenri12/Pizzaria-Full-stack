@@ -13,3 +13,4 @@ function abrirFechar(){
         btnFechar.classList.remove('esconder');
     }
 }
+
