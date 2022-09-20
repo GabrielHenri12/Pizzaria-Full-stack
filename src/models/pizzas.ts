@@ -31,7 +31,7 @@ export const Pizzas = sequelize.define<UserInstance>('Pizzas',{
         }
     },
     valor: {
-        type: DataTypes.INTEGER
+        type: DataTypes.FLOAT
     },
     descricao:{
         type: DataTypes.STRING
