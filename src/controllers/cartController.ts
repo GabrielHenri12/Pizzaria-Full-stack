@@ -26,7 +26,8 @@ export const addCart = async (req:Request, res:Response)=>{
 
 export const homeCart = async (req:Request, res:Response)=>{
     let cart = await Cart.findAll();
-        
+    
+    res.json({pong: true});
     res.render('pages/cartPage', {
         cart
     })
