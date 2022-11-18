@@ -3,7 +3,11 @@ import { User } from '../models/user';
 import { generateToken } from "../configuration/passport"
 
 export const cadastre = async (req: Request, res: Response) => {
-    
+    let testUser = await User.findOne({where: {email: req.body.email}}) 
+    if(testUser){
+        res.json({err: 'Email já existe', status: false})
+        return;
+    }
     if (req.body) {
         let newUser = await User.create({
             name: req.body.name,

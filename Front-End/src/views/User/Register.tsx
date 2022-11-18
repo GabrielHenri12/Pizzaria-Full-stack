@@ -1,84 +1,88 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './Login.css'
-import Eye from "../../assets/olho.png"
 import api from '../../BaseApi/BaseUrl'
+import Input from '../../components/Inputs/Input';
+import InputPassword from '../../components/Inputs/InputPassword';
 
 export default () => {
 
-    const [type, setType] = useState('password')
-    const [type2, setType2] = useState('password')
+    const [name, setName] = useState({ value: '', valid: true })
+    const [userName, setUserName] = useState({ value: '', valid: true })
+    const [email, setEmail] = useState({ value: '', valid: true })
+    const [password, setPassword] = useState({ value: '', valid: true })
+    const [ConfirmPassword, setConfirmPassword] = useState({ value: '', valid: true })
+    const [err, setErr] = useState({ status: false, mensage: '' })
+    const navigate = useNavigate();
 
-    function viwPassword(type: string) {
-        switch (type) {
-            case 'password': setType('text');
-                break;
-            case 'text': setType('password');
-                break;
+    
+    function onSubmit(event: any) {
+        event.preventDefault();
+
+        let newUser = {}
+        if (name.valid && userName.valid && email.valid && password.valid && ConfirmPassword.valid) {
+            newUser = {
+                name: name.value,
+                userName: userName.value,
+                email: email.value,
+                password: password.value
+            }
+            api
+                .post("/user/cadastre/", newUser)
+                .then(response => {
+                    if (response.data.status == false) {
+                        setErr({ status: true, mensage: 'Eamil já cadastrado!' })
+                    } else {
+                        navigate('/login')
+                    }
+                })
+                .catch(err => console.log('deu erro' + err))
+        } else {
+            setErr({ status: true, mensage: 'Preencha todos os campos corretamente!' })
         }
     }
 
-    function viwConfirmPassword(type: string) {
-        switch (type) {
-            case 'password': setType2('text');
-                break;
-            case 'text': setType2('password');
-                break;
-        }
-    }
-
-    const [name, setName] = useState({value:'', valid: true})
-    const [userName, setUserName] = useState({value:'', valid: true})
-    const [email, setEmail] = useState({value:'', valid: true})
-    const [password, setPassword] = useState({value:'', valid: true})
-    const [ConfirmPassword, setConfirmPassword] = useState({value:'', valid: true})
-
-    let newUser = {name, userName, email, password}
-
-    function Register() {
-        api
-            .post("/user/cadastre/", newUser)
-            .then(response => console.log(response.data))
-            .catch(err => console.log('deu erro' + err))
-    }
 
     function RegisterFunc(e: string, type: string) {
         switch (type) {
-            case 'name':
-                if(e.length < 2){
-                    setName({value: e, valid:false})
-                }else{
-                    setName({value: e, valid:true})
+            case 'Name':
+                if (e.length < 2) {
+                    setName({ value: e, valid: false })
+                } else {
+                    setName({ value: e, valid: true })
                 }
                 break;
-            case 'userName':
-                if(e.length < 5){
-                    setUserName({value: e, valid:false})
-                }else{
-                    setUserName({value: e, valid:true})
+            case 'UserName':
+                if (e.length < 5) {
+                    setUserName({ value: e, valid: false })
+                } else {
+                    setUserName({ value: e, valid: true })
                 }
                 break;
-            case 'email':
-                if(e.length < 8){
-                    setEmail({value: e, valid:false})
-                }else{
-                    setEmail({value: e, valid:true})
+            case 'Email':
+                if (e.length < 8) {
+                    setEmail({ value: e, valid: false })
+                } else {
+                    setEmail({ value: e, valid: true })
                 }
                 break;
-            case 'password':
-                if(e.length < 6){
-                    setPassword({value: e, valid:false})
-                }else{
-                    setPassword({value: e, valid:true})
-                    if(e == ConfirmPassword.value){
-                        setConfirmPassword({value:e, valid: true})
+            case 'Senha':
+                if (e.length < 6) {
+                    setPassword({ value: e, valid: false })
+                } else {
+                    setPassword({ value: e, valid: true })
+                    if (e == ConfirmPassword.value) {
+                        ConfirmPassword.valid = true
+                    } else {
+                        ConfirmPassword.valid = false
                     }
                 }
                 break;
-            case 'ConfirmPassword':
-                if(e != password.value){
-                    setConfirmPassword({value: e, valid: false})
-                }else{
-                    setConfirmPassword({value: e, valid: true})
+            case 'Confirmar-Senha':
+                if (e != password.value) {
+                    setConfirmPassword({ value: e, valid: false })
+                } else {
+                    setConfirmPassword({ value: e, valid: true })
                 }
                 break;
         }
@@ -86,62 +90,16 @@ export default () => {
 
     return (
         <div>
-            <form className='form'>
+            <form onSubmit={onSubmit} className='form'>
                 <div className="input">
                     <h2>Cadastro</h2>
-                    <div className={`singleInput ${name.valid? 'ture':'false'}`}>
-                        <input
-                            required
-                            type="text"
-                            id="Name"
-                            value={name.value}
-                            onChange={e => RegisterFunc(e.target.value, 'name')}
-                        />
-                        <label htmlFor="Name" id="LabelName">{name.valid? 'Nome':'Dígite seu nome'}:</label>
-                    </div>
-                    <div className={`singleInput ${userName.valid? 'ture':'false'}`}>
-                        <input
-                            required
-                            type="text"
-                            id="UserName"
-                            value={userName.value}
-                            onChange={e => RegisterFunc(e.target.value, 'userName')}
-                        />
-                        <label htmlFor="UserName" id="LabelUserName">{userName.valid? 'User Name':'Mínimo de 5 caractere'}:</label>
-                    </div>
-                    <div className={`singleInput ${email.valid? 'ture':'false'}`}>
-                        <input
-                            required
-                            type="text"
-                            id="email"
-                            value={email.value}
-                            onChange={e => RegisterFunc(e.target.value, 'email')}
-                        />
-                        <label htmlFor="email" id="LabelEmail">{email.valid? 'Email':'Email invalido'}:</label>
-                    </div>
-                    <div className={`singleInput ${password.valid? 'ture':'false'}`}>
-                        <input
-                            required
-                            type={type}
-                            id="password"
-                            value={password.value}
-                            onChange={e => RegisterFunc(e.target.value, 'password')}
-                        />
-                        <label htmlFor="password" id="labelpassword">{password.valid? 'Senha':'Senha invalida'}:</label>
-                        <img src={Eye} onClick={e => viwPassword(type)} alt="Visualizar Senha" />
-                    </div>
-                    <div className={`singleInput ${ConfirmPassword.valid? 'ture':'false'}`}>
-                        <input
-                            required
-                            type={type2}
-                            id="ConfirmPassword"
-                            value={ConfirmPassword.value}
-                            onChange={e => RegisterFunc(e.target.value, 'ConfirmPassword')}
-                        />
-                        <label htmlFor="ConfirmPassword" id="labelConfirmPassword">{ConfirmPassword.valid? 'Confirmar Senha':'Senhas diferente'}:</label>
-                        <img src={Eye} onClick={e => viwConfirmPassword(type2)} alt="Visualizar Senha" />
-                    </div>
-                    <button onClick={Register}>Cadastrar</button>
+                    {err.status ? <span>{err.mensage}</span> : ''}
+                    <Input type={'text'} id={'Name'} textValid={'Dígite seu nome'} item={name} func={RegisterFunc} />
+                    <Input type={'text'} id={'UserName'} textValid={'Mínimo de 5 caractere'} item={userName} func={RegisterFunc} />
+                    <Input type={'text'} id={'Email'} textValid={'Email invalido'} item={email} func={RegisterFunc} />
+                    <InputPassword id={'Senha'} textValid={'Senha invalida'} item={password} func={RegisterFunc} />
+                    <InputPassword id={'Confirmar-Senha'} textValid={'Senhas diferente'} item={ConfirmPassword} func={RegisterFunc} />
+                    <button>Cadastrar</button>
                 </div>
             </form>
         </div>
