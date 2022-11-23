@@ -1,72 +1,57 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './Login.css'
-import Eye from "../../assets/olho.png"
-import api from '../../BaseApi/BaseUrl'
+import api from '../../services/Api'
+import Input from '../../components/Inputs/Input'
+import InputPassword from '../../components/Inputs/InputPassword'
+import { signIn } from '../../services/auth';
 
 export default () => {
 
-    const [type, setType] = useState('password')
+    const [Err, setErr] = useState('')
+    const [email, setUser] = useState({ value: '', valid: true })
+    const [password, setPassword] = useState({ value: '', valid: true })
+    const navigate = useNavigate()
 
-    function viwPassword(type: string) {
-        switch (type) {
-            case 'password': setType('text');
-                break;
-            case 'text': setType('password');
-                break;
-        }
-    }
-
-    const [email, setUser] = useState('')
-    const [password, setPassword] = useState('')
-
-    function login(email:string, password:string ) {
+    function login(event: any) {
+        event.preventDefault();
+        let user = { email: email.value, password: password.value }
         api
-            .post("/user/login/", {email, password})
-            .then(response => console.log(response.data))
+            .post("/user/login/", user)
+            .then(response => {
+                if (response.data.status == false) {
+                    setErr(response.data.error)
+                } else {
+                    signIn(response.data.token)
+                    navigate('/')
+                }
+            })
             .catch(err => console.log('deu erro' + err))
     }
 
     function loginFunc(e: string, type: string) {
         switch (type) {
-            case 'email':
-                setUser(e)
+            case 'Email':
+                setUser({ value: e, valid: true })
                 break;
-            case 'password':
-                setPassword(e)
+            case 'Password':
+                setPassword({ value: e, valid: true })
                 break;
         }
     }
 
     return (
         <div>
-            <div className='form'>
+            <form onSubmit={login} className='form'>
                 <div className="input">
                     <h2>Login</h2>
-                    <div className="singleInput">
-                        <input
-                            required
-                            type="text"
-                            id="email"
-                            value={email}
-                            onChange={e => loginFunc(e.target.value, 'email')}
-                        />
-                        <label htmlFor="email" id="LabelEmail">Email:</label>
-                    </div>
-                    <div className="singleInput">
-                        <input
-                            required
-                            type={type}
-                            id="senha"
-                            value={password}
-                            onChange={e => loginFunc(e.target.value, 'password')}
-                        />
-                        <label htmlFor="senha" id="labelSenha">Senha:</label>
-                        <img src={Eye} onClick={e => viwPassword(type)} id="verSenha" alt="Visualizar Senha" />
-                    </div>
+                    {Err}
+                    <Input type={'text'} id={'Email'} item={email} func={loginFunc} />
+                    <InputPassword id={'Password'} item={password} func={loginFunc} />
                     <a href="/cadastro">cadastrar?</a>
-                    <button onClick={e=> login(email, password)}>Login</button>
+                    <button>Login</button>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

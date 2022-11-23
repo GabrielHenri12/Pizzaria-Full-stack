@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import api from '../../BaseApi/BaseUrl'
+import api from '../../services/Api'
 import './Home.css'
 
 type list = {

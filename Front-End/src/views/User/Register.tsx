@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
-import api from '../../BaseApi/BaseUrl'
+import api from '../../services/Api'
 import Input from '../../components/Inputs/Input';
 import InputPassword from '../../components/Inputs/InputPassword';
 

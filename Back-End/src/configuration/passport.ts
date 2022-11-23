@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import passport, {use} from "passport";
+import passport from "passport";
 import { Strategy as JWTstrategy, ExtractJwt } from "passport-jwt";
 import dotenv from "dotenv";
 import JWT from "jsonwebtoken";
