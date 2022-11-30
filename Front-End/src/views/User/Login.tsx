@@ -49,7 +49,7 @@ export default () => {
                     <Input type={'text'} id={'Email'} item={email} func={loginFunc} />
                     <InputPassword id={'Password'} item={password} func={loginFunc} />
                     <a href="/cadastro">cadastrar?</a>
-                    <button>Login</button>
+                    <button className='button'>Login</button>
                 </div>
             </form>
         </div>

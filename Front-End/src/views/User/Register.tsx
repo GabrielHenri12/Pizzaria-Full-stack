@@ -99,7 +99,7 @@ export default () => {
                     <Input type={'text'} id={'Email'} textValid={'Email invalido'} item={email} func={RegisterFunc} />
                     <InputPassword id={'Senha'} textValid={'Senha invalida'} item={password} func={RegisterFunc} />
                     <InputPassword id={'Confirmar-Senha'} textValid={'Senhas diferente'} item={ConfirmPassword} func={RegisterFunc} />
-                    <button>Cadastrar</button>
+                    <button className='button'>Cadastrar</button>
                 </div>
             </form>
         </div>

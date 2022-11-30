@@ -3,7 +3,7 @@ import { Pizzas } from "../models/pizzas";
 import { Cart } from "../models/cart";
 
 export const addCart = async (req:Request, res:Response)=>{
-    let {tamanho, quantidade, id} = req.body;
+    let {tamanho, quantidade, id, token} = req.body;
     let pizza = await Pizzas.findByPk(id);
 
     if(id){
