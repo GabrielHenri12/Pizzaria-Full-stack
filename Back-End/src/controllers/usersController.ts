@@ -29,6 +29,7 @@ export const login = async (req: Request, res: Response) => {
 
     if (userLog) {
         let token = generateToken({ id: userLog.id });
+        await userLog.update({token});
         res.json({ status: true, token });
         return;
     } else {

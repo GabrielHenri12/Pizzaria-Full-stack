@@ -30,7 +30,7 @@ export const generateToken = (data: object)=>{
 export const privateRouts = (req:Request, res:Response, next:NextFunction)=>{
     passport.authenticate('jwt', (err, user)=>{
         if(user){
-            req.user = user
+            req.user = user.id
             next()
         }else{
             next(notAuthorized);

@@ -1,72 +1,43 @@
 import { Request, Response } from "express";
 import { Pizzas } from "../models/pizzas";
 import { Cart } from "../models/cart";
+import { User } from "../models/user";
 
-export const addCart = async (req:Request, res:Response)=>{
-    let {tamanho, quantidade, id, token} = req.body;
+export const addCart = async (req: Request, res: Response) => {
+    let { tamanho, quantidade, id} = req.body;
     let pizza = await Pizzas.findByPk(id);
+    let user = req.user
 
-    if(id){
-        let valor = 0
-        if(pizza?.valor){
-            valor = (pizza.valor) * quantidade
+    if (user != undefined) {
+        if (id && tamanho && quantidade) {
+            const newItem = Cart.build({
+                id_user: user,
+                id_pizza: pizza?.id,
+                size: tamanho,
+                length: parseInt(quantidade),
+            })
+            await newItem.save()
+            res.json({ newItem })
+
+        } else {
+            res.json({ error: 'something is missing' })
+            return;
         }
-        const newItem = Cart.build({
-            size: tamanho,
-            length: quantidade,
-            img: pizza?.img,
-            money: valor,
-            flavor: pizza?.sabor
-        })
-        await newItem.save()
-        res.json({newItem})
+    } else {
+        res.json({ error: 'token of user invalid' })
+        return;
     }
 };
 
-export const homeCart = async (req:Request, res:Response)=>{
-    let cart = await Cart.findAll();
-    
-    res.json({cart});
+export const homeCart = async (req: Request, res: Response) => {
+    let cart = await Cart.findAll({where:{id_user: req.user}});
+
+    res.json({ cart });
 }
 
-export const increase = async (req:Request, res:Response)=>{
+export const delet = async (req: Request, res: Response) => {
     let id: number = parseInt(req.params.id);
-    let itemCart = await Cart.findAll( { where: {id_pedido:id} } );
-    if(itemCart.length > 0){
-        let item = itemCart[0];
-        let money = item.money/item.length;
+    await Cart.destroy({ where: { id_pedido: id } });
 
-        if(item.length <10){
-            item.length++;
-            item.money = item.length*money;
-        }
-        await item.save();
-    }
-
-    res.redirect('/carrinho');
-}
-
-export const decrease = async (req:Request, res:Response)=>{
-    let id: number = parseInt(req.params.id);
-    let itemCart = await Cart.findAll( { where: {id_pedido:id} } );
-
-    if(itemCart.length > 0){
-        let item = itemCart[0];
-        let money = item.money/item.length;
-
-        if(item.length > 1){
-            item.length--;
-            item.money = item.length*money;
-        }
-        await item.save();
-    }
-
-    res.redirect('/carrinho');
-}
-
-export const delet = async (req:Request, res:Response)=>{
-    let id: number = parseInt(req.params.id);
-    await Cart.destroy( { where: {id_pedido:id} } );
-
-    res.redirect('/carrinho');
+    res.json({ sucess: true });
 }

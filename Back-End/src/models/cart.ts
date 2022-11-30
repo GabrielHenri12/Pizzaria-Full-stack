@@ -3,12 +3,10 @@ import { sequelize } from "../instances/mysql";
 
 export interface cartInstances extends Model {
     id_pedido: number;
+    id_user: number;
     id_pizza: number;
     length: number;
     size: string;
-    img: string;
-    money: number;
-    flavor: string;
 }
 
 export const Cart = sequelize.define<cartInstances>("Cart", {
@@ -17,19 +15,16 @@ export const Cart = sequelize.define<cartInstances>("Cart", {
         autoIncrement: true,
         type: DataTypes.INTEGER
     },
+    id_user: {
+        type: DataTypes.INTEGER
+    },
+    id_pizza: {
+        type: DataTypes.INTEGER
+    },
     length: {
         type: DataTypes.INTEGER
     },
     size:{
-        type: DataTypes.STRING
-    },
-    img:{
-        type: DataTypes.STRING
-    },
-    money:{
-        type: DataTypes.FLOAT
-    },
-    flavor:{
         type: DataTypes.STRING
     }
 },{
