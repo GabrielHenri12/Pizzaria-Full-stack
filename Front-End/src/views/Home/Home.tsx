@@ -14,14 +14,23 @@ type list = {
 
 export default () => {
 
-    const [list, setList]: any = useState()
+    const [list, setList]: any = useState();
+    const [reset, setReset] = useState('reset');
 
     useEffect(() => {
         api
             .get('/home')
             .then((Response) => setList(Response.data))
             .catch((err) => console.log("Opps ocorreu um erro" + err))
-    }, []);
+    }, [reset]);
+
+    function addPizza(id: number){
+        let pizza = {tamanho: 'Grande', quantidade: 1, id}
+        api
+            .post('/carrinho/adicionar/', pizza)
+            .then(response => {alert('Pizza Adicionada'), setReset('resetado')})
+            .catch(err => console.log(err))
+    };
 
     let listLi = list?.listaPizza.map((item: list) => {
         return (
@@ -29,7 +38,7 @@ export default () => {
                 <div className="item" id="item">
                     <img src={`/images/${item.img}`} alt="Miniatura das Pizzas" />
                     <span>{item.sabor}</span>
-                    <a href={`/home/${item.id}`} className="btn">+ADICIONAR</a>
+                    <button onClick={e => addPizza(item.id)} className="btn">+ADICIONAR</button>
                 </div>
             </li>
         )

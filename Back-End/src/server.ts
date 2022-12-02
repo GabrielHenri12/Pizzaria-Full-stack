@@ -1,6 +1,5 @@
 import express, {Request, Response, ErrorRequestHandler} from "express";
 import dotenv from "dotenv";
-import mustache from "mustache-express";
 import path from "path";
 import cors from "cors";
 import { MulterError } from "multer";
@@ -12,8 +11,8 @@ const server = express()
 
 server.use(cors())
 
-server.use(express.static(path.join(__dirname, '../public')));
 server.use(express.json())
+server.use(express.static(path.join(__dirname, '../public')));
 server.use(express.urlencoded({extended: true}))
 
 server.use(mainroutes);

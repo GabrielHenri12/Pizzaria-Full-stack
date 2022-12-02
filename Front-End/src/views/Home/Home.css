@@ -63,8 +63,9 @@
     height: 170px;
 }
 
-#item a{
+#item button{
     border-radius: 20px;
+    border: 0;
     display: flex;
     justify-content: center;
     align-items:center;

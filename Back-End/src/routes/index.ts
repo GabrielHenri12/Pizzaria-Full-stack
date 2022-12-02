@@ -11,7 +11,7 @@ router.get('/pizza/:id/', HomeController.opcao);
 
 router.get('/carrinho/', privateRouts, cartController.homeCart);
 router.post('/carrinho/adicionar/',privateRouts, cartController.addCart);
-router.get('/carrinho/:id/deletar', cartController.delet);
+router.delete('/carrinho/:id/deletar', cartController.delet);
 
 router.post('/user/cadastre/', usersController.cadastre);
 router.post('/user/login/', usersController.login)
