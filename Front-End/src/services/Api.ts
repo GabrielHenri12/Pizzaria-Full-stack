@@ -1,15 +1,18 @@
 import axios from "axios"
 import { getToken } from "./auth"
 
-let url = "http://localhost:1210";
-
+let url = "http://backend.gabrieldev.online";
+const token = getToken();
 const api = axios.create({
-    baseURL: url
-})
+    baseURL: url,
+    headers: {
+        Authorization: `Bearer ${token}`
+    }
+});
 
 api.interceptors.request.use(
     config => {
-        const token = getToken();
+        
         if (token) {
             api.defaults.headers.authorization = `Bearer ${token}`;
         }
@@ -19,17 +22,5 @@ api.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-
-axios.interceptors.response.use((response) => {
-    if (response.status === 401) {
-        console.log("You are not authorized");
-    }
-    return response;
-}, (error) => {
-    if (error.response && error.response.data) {
-        return Promise.reject(error.response.data);
-    }
-    return Promise.reject(error.message);
-});
 
 export default api;
