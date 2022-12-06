@@ -3,3 +3,14 @@
     flex-direction: column;
     height: 100vh;
 }
+
+.button {
+    margin: 25px 140px;
+    padding: 5px 25px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #ffaf1b;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
