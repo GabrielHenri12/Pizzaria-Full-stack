@@ -1,28 +1,39 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
 import api from '../../services/Api'
 import Input from '../../components/Inputs/Input'
 import InputPassword from '../../components/Inputs/InputPassword'
-import { signIn } from '../../services/auth';
+import { signIn, signOut } from '../../services/auth';
 
 export default () => {
 
     const [Err, setErr] = useState('')
     const [email, setUser] = useState({ value: '', valid: true })
     const [password, setPassword] = useState({ value: '', valid: true })
+    const [loadind, setLoading] = useState<boolean>(true)
     const navigate = useNavigate()
+
+    function loggout() {
+        signOut()
+        alert('deslogado')
+        navigate('/login')
+    };
 
     function login(event: any) {
         event.preventDefault();
         let user = { email: email.value, password: password.value }
+        setLoading(false)
         api
             .post("/user/login/", user)
             .then(response => {
                 if (response.data.status == false) {
                     setErr(response.data.error)
+                    setLoading(true)
                 } else {
                     signIn(response.data.token)
+                    setTimeout(loggout, 10000000)
+                    setLoading(true)
                     navigate('/')
                 }
             })
@@ -48,8 +59,9 @@ export default () => {
                     {Err}
                     <Input type={'text'} id={'Email'} item={email} func={loginFunc} />
                     <InputPassword id={'Password'} item={password} func={loginFunc} />
-                    <a href="/cadastro">cadastrar?</a>
+                    <a id='cadastrar' href="/cadastro">cadastrar?</a>
                     <button className='button'>Login</button>
+                    {!loadind && <span>Carregando...</span>}
                 </div>
             </form>
         </div>
