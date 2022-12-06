@@ -80,18 +80,14 @@
     filter: invert(100%);
 }
 
-.Menu li button{
-    background: none;
-    border: 0;
-    width: 20px;
-    height: 20px;
-}
-
-.Menu li a{
+.Menu li a, .Menu li button{
     display: flex;
     align-content: center;
     align-items: center;
     color: #fff;
+    background: none;
+    border: 0;
+    font-size: 1rem;
 }
 
 .Menu li:hover {
