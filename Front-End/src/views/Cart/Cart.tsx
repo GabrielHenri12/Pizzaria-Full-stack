@@ -13,45 +13,54 @@ type cart = {
 }
 
 export default () => {
-    const [cartItem, setItens]: any = useState()
-    const [reset, setReset] = useState('reset');
-    console.log(reset)
+    const [cartItem, setItens] = useState<any>()
+    const [loadind, setLoadind] = useState<boolean>(false)
+    const [Err, setErr] = useState<boolean>(false);
 
     useEffect(() => {
-        api
-            .get('/carrinho')
-            .then(response => setItens(response.data))
-            .catch(err => console.log(err))
-        
-    }, [reset]);
+        loadingPage()
+    }, []);
 
-    function deletItem(id: number) {
+    const loadingPage = async () => {
+        try {
+            let response = await api.get('/carrinho')
+            setItens(response.data);
+            setLoadind(true);
+        } catch (err) {
+            setErr(true);
+            setLoadind(true);
+            console.log(err)
+        }
+    }
+    
+    const deletItem = (id: number) => {
         api
             .delete(`/carrinho/${id}/deletar`)
-            .then(response => setReset(response.data))
-            .catch(err => console.log(err))
+            .then(()=>loadingPage())
+            .catch(err=>console.log(err))       
     }
-
-    let listLi = cartItem?.mapCart.map((item: cart) => {
-        let value = item.quantidade * item.valor
-        return (
-            <li key={item.id_pedido}>|
-                {item.sabor} |
-                {item.tamanho} |
-                {item.quantidade} |
-                {value} |
-                <img src={Delet} onClick={e => deletItem(item.id_pedido)} />
-            </li>
-        )
-    })
-    console.log(cartItem)
+    
     return (
-        <div>
-            <h1>Carrinho</h1>
+        <div className='cart'>
+            <h2>Carrinho</h2>
             <ul>
-                {listLi}
+                {Err && <span>recarregue a página!</span>}
+                {loadind === false && <span>Carregando...</span>}
+                {loadind === true &&
+                 cartItem.mapCart.map((item: cart) => {
+                    let value = item.quantidade * item.valor
+                    return (
+                        <li key={item.id_pedido}>
+                            <span>{item.sabor} </span>
+                            <span>{item.tamanho} </span>
+                            <span id='quantidade'>{item.quantidade}</span> 
+                            <span>R${value}</span> 
+                            <img src={Delet} onClick={e => deletItem(item.id_pedido)} />
+                        </li>
+                    )
+                })}
             </ul>
-            <button onClick={e => setReset('')}>teste</button>
+            <button className='button'>Finalizar Compra</button>
         </div>
     )
 }
