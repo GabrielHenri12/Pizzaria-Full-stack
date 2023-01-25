@@ -13,7 +13,7 @@ type cart = {
 }
 
 export default () => {
-    const [cartItem, setItens] = useState<any>()
+    const [cartItem, setItens] = useState<cart[]>()
     const [loadind, setLoadind] = useState<boolean>(false)
     const [Err, setErr] = useState<boolean>(false);
 
@@ -24,7 +24,7 @@ export default () => {
     const loadingPage = async () => {
         try {
             let response = await api.get('/carrinho')
-            setItens(response.data);
+            setItens(response.data.mapCart);
             setLoadind(true);
         } catch (err) {
             setErr(true);
@@ -46,8 +46,8 @@ export default () => {
             <ul>
                 {Err && <span>recarregue a página!</span>}
                 {loadind === false && <span>Carregando...</span>}
-                {loadind === true &&
-                 cartItem.mapCart.map((item: cart) => {
+                {loadind === true && cartItem &&
+                 cartItem.map((item: cart) => {
                     let value = item.quantidade * item.valor
                     return (
                         <li key={item.id_pedido}>
@@ -55,7 +55,7 @@ export default () => {
                             <span>{item.tamanho} </span>
                             <span id='quantidade'>{item.quantidade}</span> 
                             <span>R${value}</span> 
-                            <img src={Delet} onClick={e => deletItem(item.id_pedido)} />
+                            <img src={Delet} onClick={_ => deletItem(item.id_pedido)} />
                         </li>
                     )
                 })}

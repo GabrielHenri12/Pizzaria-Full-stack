@@ -31,9 +31,9 @@ export const privateRouts = (req:Request, res:Response, next:NextFunction)=>{
     passport.authenticate('jwt', (err, user)=>{
         if(user){
             req.user = user.id
-            next()
+            return next()
         }else{
-            next(notAuthorized);
+            return res.json(notAuthorized);
         }
     })(req, res, next);
 }

@@ -32,7 +32,7 @@ export default () => {
                     setLoading(true)
                 } else {
                     signIn(response.data.token)
-                    setTimeout(loggout, 10000000)
+                    setTimeout(loggout, 5000000)
                     setLoading(true)
                     navigate('/')
                 }

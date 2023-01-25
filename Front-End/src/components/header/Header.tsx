@@ -30,7 +30,6 @@ export default () => {
                         {!logged &&
                             <>
                                 <li><Link to="/"><img src={home} alt="Pagina principal" />Home</Link></li>
-                                <li><Link to="/login"><img src={cart} alt="Pagina do carrinho" />Carrinho</Link></li>
                                 <li><Link to="/login"><img src={login} alt="Pagina de login" />Login</Link></li>
                             </>
                         }
