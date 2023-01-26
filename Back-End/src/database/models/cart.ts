@@ -1,15 +1,15 @@
 import { Model, DataTypes } from "sequelize";
-import { sequelize } from "../instances/mysql";
+import sequelize from ".";
 
-export interface cartInstances extends Model {
-    id_pedido: number;
-    id_user: number;
-    id_pizza: number;
-    length: number;
-    size: string;
+class Cart extends Model {
+    id_pedido!: number;
+    id_user!: number;
+    id_pizza!: number;
+    length!: number;
+    size!: string;
 }
 
-export const Cart = sequelize.define<cartInstances>("Cart", {
+Cart.init({
     id_pedido: {
         primaryKey: true,
         autoIncrement: true,
@@ -24,10 +24,13 @@ export const Cart = sequelize.define<cartInstances>("Cart", {
     length: {
         type: DataTypes.INTEGER
     },
-    size:{
+    size: {
         type: DataTypes.STRING
     }
-},{
+}, {
+    sequelize: sequelize,
     tableName: "cart",
     timestamps: false
 })
+
+export default Cart;

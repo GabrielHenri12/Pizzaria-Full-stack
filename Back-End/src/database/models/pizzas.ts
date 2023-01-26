@@ -1,17 +1,17 @@
 import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '../instances/mysql';
+import sequelize from ".";
 
-export interface UserInstance extends Model {
-    id: number;
-    sabor: string;
-    img: string;
-    tamanho: string;
-    valor: number;
-    quantidade: number;
-    descricao: string;
+class Pizzas extends Model {
+    id!: number;
+    sabor!: string;
+    img!: string;
+    tamanho!: string;
+    valor!: number;
+    quantidade!: number;
+    descricao!: string;
 }
 
-export const Pizzas = sequelize.define<UserInstance>('Pizzas',{
+Pizzas.init({
     id: {
         primaryKey: true,
         autoIncrement: true,
@@ -25,7 +25,7 @@ export const Pizzas = sequelize.define<UserInstance>('Pizzas',{
     },
     tamanho: {
         type: DataTypes.STRING,
-        get(){
+        get() {
             const row = this.getDataValue('tamanho');
             return JSON.parse(row);
         }
@@ -33,13 +33,18 @@ export const Pizzas = sequelize.define<UserInstance>('Pizzas',{
     valor: {
         type: DataTypes.FLOAT
     },
-    descricao:{
+    descricao: {
         type: DataTypes.STRING
     },
     quantidade: {
         type: DataTypes.INTEGER
-    }},
+    }
+},
     {
+        sequelize: sequelize,
         tableName: 'pizzas',
         timestamps: false
-})
+    }
+)
+
+export default Pizzas;

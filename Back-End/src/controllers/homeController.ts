@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Pizzas } from "../models/pizzas";
+import  Pizzas  from "../database/models/pizzas";
 
 export const home = async (req:Request, res:Response)=>{
     let listaPizza = await Pizzas.findAll();

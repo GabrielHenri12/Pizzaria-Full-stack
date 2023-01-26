@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Pizzas } from "../models/pizzas";
-import { Cart } from "../models/cart";
+import  Pizzas  from "../database/models/pizzas";
+import Cart from "../database/models/cart";
 
 export const addCart = async (req: Request, res: Response) => {
     let { tamanho, quantidade, id } = req.body;
