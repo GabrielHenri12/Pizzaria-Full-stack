@@ -36,6 +36,17 @@ ul {
     align-items: center;
     border-radius: 5px;
 }
+@media (max-width: 1080px) {
+    .input{
+        width: 80vw;
+        height: 100vh;
+    }
+}
+@media (max-width: 480px) {
+    .input{
+        width: 100vw;
+    }
+}
 
 .form h2 {
     text-align: center;
