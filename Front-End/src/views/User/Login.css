@@ -22,15 +22,14 @@ ul {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: #9dfad1;
-    background-image: linear-gradient(180deg, #9dfad1 0%, #65ad8d 100%);
 }
 
 .input {
     height: 90vh;
     width: 35vw;
     margin-top: 20px;
-    border: 1px solid #000; 
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.719);
+    background-color: #91EEFA;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,12 +37,16 @@ ul {
     border-radius: 5px;
 }
 
-h2 {
+.form h2 {
     text-align: center;
     font-size: 2.5rem;
     color: #FFF;
     letter-spacing: 0.3rem;
     margin-bottom: 10px;
+}
+
+.form a{
+    color: #FFF;
 }
 
 @media (max-width: 900px) {

@@ -1,4 +1,4 @@
-.menu--pizzas{
+.menu--pizzas {
     display: block;
     width: 90vw;
     height: 800px;
@@ -6,7 +6,13 @@
     margin-top: 80px;
 }
 
-.title{
+@media (min-width: 1425px) {
+    .menu--pizzas {
+        width: 60vw;
+    }
+}
+
+.title {
     font-size: 50px;
     text-align: center;
     color: #ff1b6b;
@@ -14,40 +20,40 @@
     margin-bottom: 35px;
 }
 
-.menu--pizzas ul{
+.menu--pizzas ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
 }
 
-.menu--pizzas li{
+.menu--pizzas li {
     display: flex;
     width: 270px;
     height: 290px;
     margin: 30px 20px;
     border-radius: 7px;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.719);
-    background-color: #ffaf1b;
-    background-image: linear-gradient(0deg, #ffaf1b 0%, #ffffff 100%);
+    background-color: #FAF3C3;
+    background-image: linear-gradient(0deg, #FAF3C3 0%, #ffffff 100%);
     position: relative;
     transform: scale(1);
     transition: all ease-in-out .2s;
 }
 
-.menu--pizzas li:hover{
+.menu--pizzas li:hover {
     transform: scale(1.2);
 }
 
-.menu--pizzas .item{
+.menu--pizzas .item {
     display: block;
     margin: auto;
     justify-content: center;
     cursor: auto;
 }
 
-.menu--pizzas .item span{
-    color: rgb(88, 71, 71);
+.menu--pizzas .item span {
+    color: #3b5b5f;
     display: flex;
     font-size: 30px;
     margin-top: 150px;
@@ -55,7 +61,7 @@
     cursor: default;
 }
 
-.menu--pizzas .item img{
+.menu--pizzas .item img {
     position: absolute;
     top: -20px;
     left: 45px;
@@ -63,17 +69,16 @@
     height: 170px;
 }
 
-#item button{
+#item button {
     border-radius: 20px;
     border: 0;
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     width: 100px;
     height: 40px;
     margin: 30px;
-    background-color: #ff3d1b;
-    background-image: linear-gradient(0deg, #ad9696c7 0%,#ff3d1b 50%, #FF1b6b 100%);
+    background-color: #AD658A;
     color: #fdfffd;
-    cursor:pointer;
+    cursor: pointer;
 }

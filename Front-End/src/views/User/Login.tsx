@@ -59,7 +59,7 @@ export default () => {
                     {Err}
                     <Input type={'text'} id={'Email'} item={email} func={loginFunc} />
                     <InputPassword id={'Password'} item={password} func={loginFunc} />
-                    <a id='cadastrar' href="/cadastro">cadastrar?</a>
+                    <a id='cadastrar' href="/cadastro">cadastrar-se</a>
                     <button className='button'>Login</button>
                     {!loadind && <span>Carregando...</span>}
                 </div>
