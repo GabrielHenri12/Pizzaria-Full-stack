@@ -29,15 +29,15 @@ export default () => {
                     <ul className='Menu'>
                         {!logged &&
                             <>
-                                <li><Link to="/"><img src={home} alt="Pagina principal" />Home</Link></li>
-                                <li><Link to="/login"><img src={login} alt="Pagina de login" />Login</Link></li>
+                                <li><a href="/"><img src={home} alt="Pagina principal" />Home</a></li>
+                                <li><a href="/login"><img src={login} alt="Pagina de login" />Login</a></li>
                             </>
                         }
                         {logged &&
                             <>
-                                <li><Link to="/"><img src={home} alt="Pagina principal" />Home</Link></li>
-                                <li><Link to="/carrinho"><img src={cart} alt="Pagina principal" />Carrinho</Link></li>
-                                <li><img src={logout} alt="deslogar do site"/><button onClick={e => loggout()}>Sair</button></li>
+                                <li><a href="/"><img src={home} alt="Pagina principal" />Home</a></li>
+                                <li><a href="/carrinho"><img src={cart} alt="Pagina principal" />Carrinho</a></li>
+                                <li><button onClick={e => loggout()}><img src={logout} alt="deslogar do site"/>Sair</button></li>
                             </>
                         }
                     </ul>
