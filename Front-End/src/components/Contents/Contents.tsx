@@ -1,4 +1,3 @@
-import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Cart from '../../views/Cart/Cart'
 import Home from '../../views/Home/Home'
@@ -11,12 +10,11 @@ export default () => {
   return (
     <main className='Contents'>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/cadastro' element={<Register/>}/>
-        <Route path='/carrinho' element={<Cart/>}/>
-        <Route path='*' element={<NotFound/>}/>
-          
+        <Route path="/" element={<Home/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/cadastro" element={<Register/>}/>
+        <Route path="/carrinho" element={<Cart/>}/>
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
     </main>
   )
