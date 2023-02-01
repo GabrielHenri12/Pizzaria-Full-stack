@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css'
 import api from '../../services/Api'
 import Input from '../../components/Inputs/Input'
@@ -59,7 +59,7 @@ export default () => {
                     {Err}
                     <Input type={'text'} id={'Email'} item={email} func={loginFunc} />
                     <InputPassword id={'Password'} item={password} func={loginFunc} />
-                    <a id='cadastrar' href="/cadastro">cadastrar-se</a>
+                    <Link id='cadastrar' to="/cadastro">cadastrar-se</Link>
                     <button className='button'>Login</button>
                     {!loadind && <span>Carregando...</span>}
                 </div>
