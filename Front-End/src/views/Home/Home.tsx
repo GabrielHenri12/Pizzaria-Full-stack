@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
+import CardHome from '../../components/Cards/CardHome';
 import api from '../../services/Api'
 import './Home.css'
 
-type list = {
+export type list = {
     id: number;
     sabor: string;
     img: string;
@@ -14,7 +15,7 @@ type list = {
 
 export default () => {
 
-    const [list, setList]: any = useState();
+    const [list, setList] = useState<list[]>();
     const [loadind, setLoadind] = useState<boolean>(false)
 
     useEffect(() => {
@@ -24,7 +25,7 @@ export default () => {
     const loadingPage =async ()=>{
         try {
             let response = await api.get('/home')
-            setList(response.data);
+            setList(response.data.listaPizza);
             setLoadind(true);
         } catch (err) {
             console.log(err)
@@ -35,8 +36,9 @@ export default () => {
         let pizza = { tamanho: 'Grande', quantidade: 1, id }
         api
             .post('/carrinho/adicionar/', pizza)
-            .then(response => { alert('Pizza Adicionada')})
+            .then(() => { alert('Pizza Adicionada')})
             .catch(err => console.log(err))
+        return
     };
 
     return (
@@ -45,14 +47,8 @@ export default () => {
             <div className="pizza--size">
                 <ul className="ul">
                     {loadind === false && <span>Carregando...</span>}
-                    {loadind === true && list?.listaPizza.map((item: list) => (
-                        <li key={item.id}>
-                            <div className="item" id="item">
-                                <img src={`/images/${item.img}`} alt="Miniatura das Pizzas" />
-                                <span>{item.sabor}</span>
-                                <button onClick={e => addPizza(item.id)} className="btn">+ADICIONAR</button>
-                            </div>
-                        </li>
+                    {loadind === true && list && list.map((item: list) => (
+                        <CardHome item={item} addPizza={addPizza}/>
                     ))}
                 </ul>
             </div>
