@@ -1,0 +1,56 @@
+
+.menu--pizzas ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.menu--pizzas li {
+    display: flex;
+    width: 270px;
+    height: 290px;
+    margin: 30px 20px;
+    border-radius: 12px;
+    background: #FAF3C3;
+    box-shadow: 26px 26px 21px #a1a1a1,-26px -26px 21px #ffffff;
+    position: relative;
+}
+
+.menu--pizzas .item {
+    display: block;
+    margin: auto;
+    justify-content: center;
+    cursor: auto;
+}
+
+.menu--pizzas .item span {
+    color: #3b5b5f;
+    display: flex;
+    font-size: 30px;
+    margin-top: 150px;
+    justify-content: center;
+    cursor: default;
+}
+
+.menu--pizzas .item img {
+    position: absolute;
+    top: -20px;
+    left: 45px;
+    width: 170px;
+    height: 170px;
+}
+
+#item button {
+    border-radius: 20px;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    margin: 30px;
+    background-color: #AD658A;
+    color: #fdfffd;
+    cursor: pointer;
+}
