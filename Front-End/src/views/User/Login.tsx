@@ -11,7 +11,7 @@ export default () => {
     const [Err, setErr] = useState('')
     const [email, setUser] = useState({ value: '', valid: true })
     const [password, setPassword] = useState({ value: '', valid: true })
-    const [loadind, setLoading] = useState<boolean>(true)
+    const [loading, setLoading] = useState<boolean>(false)
     const navigate = useNavigate()
 
     function loggout() {
@@ -23,17 +23,17 @@ export default () => {
     function login(event: any) {
         event.preventDefault();
         let user = { email: email.value, password: password.value }
-        setLoading(false)
+        setLoading(true)
         api
             .post("/user/login/", user)
             .then(response => {
                 if (response.data.status == false) {
                     setErr(response.data.error)
-                    setLoading(true)
+                    setLoading(false)
                 } else {
                     signIn(response.data.token)
                     setTimeout(loggout, 5000000)
-                    setLoading(true)
+                    setLoading(false)
                     navigate('/')
                 }
             })
@@ -60,8 +60,7 @@ export default () => {
                     <Input type={'text'} id={'Email'} item={email} func={loginFunc} />
                     <InputPassword id={'Password'} item={password} func={loginFunc} />
                     <Link id='cadastrar' to="/cadastro">cadastrar-se</Link>
-                    <button className='button'>Login</button>
-                    {!loadind && <span>Carregando...</span>}
+                    <button className='button'>{loading? "carregando...": "Login"}</button>
                 </div>
             </form>
         </div>
