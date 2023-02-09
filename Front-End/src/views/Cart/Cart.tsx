@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
+import CardCart from '../../components/Cards/CardCart'
 import api from '../../services/Api'
-import Delet from '../../assets/delete.png'
 import './Cart.css'
 
-type cart = {
+export type cart = {
     id_pedido: number
     tamanho: string,
     quantidade: number,
@@ -50,18 +50,7 @@ export default () => {
                     cartItem.map((item: cart) => {
                         let value = item.quantidade * item.valor
                         return (
-                            <li key={item.id_pedido}>
-                                <div className='cool-1'>
-                                    <img className='Img-Pizza' src={`/images/${item.img}`} alt="Miniatura das Pizzas" />
-                                    <span>{item.sabor} </span>
-                                </div>
-                                <div className='cool-2'>
-                                    <span>{item.tamanho} </span>
-                                    <span id='quantidade'>{item.quantidade}</span>
-                                    <span>R${value}</span>
-                                </div>
-                                <img className='button-delet' src={Delet} onClick={_ => deletItem(item.id_pedido)} />
-                            </li>
+                            <CardCart item={item} value={value} deletItem={deletItem}/>
                         )
                     })}
             </ul>

@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default (props:any) => {
     let onChangeFunc = props.func
 

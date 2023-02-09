@@ -17,45 +17,6 @@
     width: 70vw;
 }
 
-.cart ul li{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 350px;
-    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.719);
-    background-color: #FAF3C3;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px;
-}
-
-.cart ul li span{
-    width: 80px;
-    margin: 0 10px;
-    text-align: center;
-    color: #3b5b5f;
-}
-#quantidade{
-    width: 10px;
-}
-.cart li .button-delet{
-    cursor: pointer;
-}
-.cool-1{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.cool-1 .Img-Pizza{
-    max-width: 60px;
-}
-
-.cool-2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 @media (max-width: 920px) {
     .cart ul {
         padding: 5px;
