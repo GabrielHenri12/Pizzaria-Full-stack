@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
 import api from '../../services/Api'
 import Input from '../../components/Inputs/Input';
 import InputPassword from '../../components/Inputs/InputPassword';
+
+type User = {
+    name: string,
+    userName: string,
+    password: string,
+    email: string
+}
 
 export default () => {
 
@@ -15,11 +22,23 @@ export default () => {
     const [err, setErr] = useState({ status: false, mensage: '' })
     const navigate = useNavigate();
 
-    
+    function newRegister(newUser: User) {
+        api
+            .post("/user/cadastre/", newUser)
+            .then(response => {
+                if (response.data.status == false) {
+                    setErr({ status: true, mensage: 'Eamil já cadastrado!' })
+                } else {
+                    navigate('/login')
+                }
+            })
+            .catch(err => console.log('deu erro' + err))
+    }
+
     function onSubmit(event: any) {
         event.preventDefault();
 
-        let newUser = {}
+        let newUser: User;
         if (name.valid && userName.valid && email.valid && password.valid && ConfirmPassword.valid) {
             newUser = {
                 name: name.value,
@@ -27,16 +46,7 @@ export default () => {
                 email: email.value,
                 password: password.value
             }
-            api
-                .post("/user/cadastre/", newUser)
-                .then(response => {
-                    if (response.data.status == false) {
-                        setErr({ status: true, mensage: 'Eamil já cadastrado!' })
-                    } else {
-                        navigate('/login')
-                    }
-                })
-                .catch(err => console.log('deu erro' + err))
+            newRegister(newUser)
         } else {
             setErr({ status: true, mensage: 'Preencha todos os campos corretamente!' })
         }
