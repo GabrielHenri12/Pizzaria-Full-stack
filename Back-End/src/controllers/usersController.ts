@@ -3,23 +3,24 @@ import User from '../database/models/user';
 import { generateToken } from "../configuration/passport"
 import bcrypt from "bcrypt"
 
-export const cadastre = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
     let testUser = await User.findOne({ where: { email: req.body.email } })
-    if (testUser) {
-        res.json({ err: 'Email já existe', status: false })
+    if (testUser != null) {
+        res.json({ Error: 'Email já existe', status: false })
         return;
     }
     if (req.body) {
         let password = bcrypt.hashSync(req.body.password, 10)
+
         let newUser = await User.create({
             name: req.body.name,
-            userName: req.body.userName,
+            lastName: req.body.lastName,
             email: req.body.email,
             password
         })
-        res.json({ user: newUser })
+        res.json(newUser)
     } else {
-        res.json({ err: 'Está faltando algúm campo' })
+        res.json({ Error: 'Está faltando algúm campo', status: false })
         console.log(req.body)
     }
 }
@@ -42,4 +43,5 @@ export const login = async (req: Request, res: Response) => {
         res.status(401);
         return;
     }
+    return res.json({ Error: "Ocorreu algum erro!" })
 }

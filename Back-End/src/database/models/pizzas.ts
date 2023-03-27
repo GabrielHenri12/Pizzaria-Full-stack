@@ -1,14 +1,12 @@
 import { Model, DataTypes } from 'sequelize';
-import sequelize from ".";
+import sequelize from "../config/database";
 
 class Pizzas extends Model {
     id!: number;
-    sabor!: string;
+    flavor!: string;
     img!: string;
-    tamanho!: string;
-    valor!: number;
-    quantidade!: number;
-    descricao!: string;
+    price!: number;
+    description!: string;
 }
 
 Pizzas.init({
@@ -17,34 +15,14 @@ Pizzas.init({
         autoIncrement: true,
         type: DataTypes.INTEGER
     },
-    sabor: {
-        type: DataTypes.STRING
-    },
-    img: {
-        type: DataTypes.STRING
-    },
-    tamanho: {
-        type: DataTypes.STRING,
-        get() {
-            const row = this.getDataValue('tamanho');
-            return JSON.parse(row);
-        }
-    },
-    valor: {
-        type: DataTypes.FLOAT
-    },
-    descricao: {
-        type: DataTypes.STRING
-    },
-    quantidade: {
-        type: DataTypes.INTEGER
-    }
-},
-    {
-        sequelize: sequelize,
-        tableName: 'pizzas',
-        timestamps: false
-    }
-)
+    flavor: { type: DataTypes.STRING },
+    img: { type: DataTypes.STRING },
+    price: { type: DataTypes.FLOAT },
+    description: { type: DataTypes.STRING }
+}, {
+    sequelize: sequelize,
+    tableName: 'pizzas',
+    timestamps: false
+})
 
 export default Pizzas;
