@@ -23,7 +23,7 @@ passport.use(new JWTstrategy(options,async (payload, done)=>{
     }
 }));
 
-export const generateToken = (data: object)=>{
+export const generateToken = (data: string)=>{
     return JWT.sign(data, process.env.JWT_SECRET_KEY as string)
 };
 
