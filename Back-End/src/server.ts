@@ -39,4 +39,6 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next)=>{
     }
 }
 
+server.use(errorHandler)
+
 server.listen(process.env.PORT);

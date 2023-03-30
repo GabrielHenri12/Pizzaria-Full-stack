@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import * as PizzasServices from "../Services/PizzaServices"
 
-export const home = async (req:Request, res:Response)=>{
+export const home = async (req:Request, res:Response, next: NextFunction)=>{
     const listaPizza = await PizzasServices.findAll();
     if(listaPizza == null){
-        return res.json({error: "Lista vazia"})
+        return next(new Error("Null list"));
     }
     res.json(listaPizza)
 }
