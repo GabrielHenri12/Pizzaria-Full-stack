@@ -1,46 +1,40 @@
 import { Request, Response } from "express";
-import Pizzas from "../database/models/pizzas";
-import Cart from "../database/models/cart";
+import * as CartServices from "../Services/CartServices";
+import * as UserServices from "../Services/UserServices";
 
 export const addCart = async (req: Request, res: Response) => {
     const { size, length, id_pizza } = req.body;
-    const id_user = req.user
+    const user = await UserServices.findUserByID(req.user as number)
 
-    if (id_user != undefined) {
-        if (id_pizza && length && size) {
-            const newItem = await Cart.create(
-                {
-                    id_user,
-                    id_pizza,
-                    length,
-                    size
-                });
-
-            await newItem.save()
-            
-            res.json(newItem)
-        } else {
-            res.json({ error: 'something is missing' })
-            return;
-        }
-    } else {
-        res.json({ error: 'token of user invalid' })
-        return;
+    if (user == null) {
+        return res.json({ error: 'token of user invalid' });
     }
+    if (!id_pizza || !length || !size) {
+        return res.json({ error: 'something is missing' });
+    }
+
+    const newItem = await CartServices.create(size, length, id_pizza, user.id);
+    
+    return res.json(newItem)
 };
 
 export const homeCart = async (req: Request, res: Response) => {
-    const cart = await Cart.findAll({ where: { id_user: req.user }, include: Pizzas });
+    
+    const user = await UserServices.findUserByID(req.user as number)
+    
+    if(user == null) return res.json({mensage: "User not find"})
 
-    if (cart == null) {
-        res.json({ mensage: "Lista Vazia" })
-    }
-    res.json(cart);
+    const carts = await CartServices.FindCarts(user.id);
+
+    return carts == null ? res.json({ mensage: "Lista Vazia" }) : res.json(carts);
 }
 
 export const delet = async (req: Request, res: Response) => {
-    let id: number = parseInt(req.params.id);
-    await Cart.destroy({ where: { id } });
-
-    res.json({ sucess: true });
+    const cart = await CartServices.findByID(parseInt(req.params.id));
+    if (cart == null) {
+        return res.json({sucess: false})
+    }
+    
+    await CartServices.deletCart(cart.id);
+    return res.json({ sucess: true });
 }

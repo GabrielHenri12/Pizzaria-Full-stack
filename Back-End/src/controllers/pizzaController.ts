@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import  Pizzas  from "../database/models/pizzas";
+import * as PizzasServices from "../Services/PizzaServices"
 
 export const home = async (req:Request, res:Response)=>{
-    let listaPizza = await Pizzas.findAll();
+    const listaPizza = await PizzasServices.findAll();
     if(listaPizza == null){
         return res.json({Error: "Lista vazia"})
     }
@@ -10,8 +10,8 @@ export const home = async (req:Request, res:Response)=>{
 }
 
 export const opcao = async (req:Request, res:Response)=>{
-    let item = await Pizzas.findByPk(parseInt(req.params.id))
+    const pizza = await PizzasServices.findByID(parseInt(req.params.id))
 
-    res.json(item)
+    res.json(pizza)
 }
 

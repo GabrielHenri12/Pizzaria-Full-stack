@@ -3,11 +3,12 @@ import sequelize from "../config/database";
 import Pizzas from "./pizzas";
 import User from "./user";
 
-class Cart extends Model {
+export class Cart extends Model {
     id!: number;
     length!: number;
     size!: string;
     id_pizza!: number;
+    id_user!: number;
 }
 
 Cart.init({
