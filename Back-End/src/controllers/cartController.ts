@@ -14,19 +14,16 @@ export const addCart = async (req: Request, res: Response) => {
     }
 
     const newItem = await CartServices.create(size, length, id_pizza, user.id);
-    
     return res.json(newItem)
 };
 
 export const homeCart = async (req: Request, res: Response) => {
     
     const user = await UserServices.findUserByID(req.user as number)
-    
-    if(user == null) return res.json({mensage: "User not find"})
+    if(user == null) return res.json({error: "User not find"})
 
     const carts = await CartServices.FindCarts(user.id);
-
-    return carts == null ? res.json({ mensage: "Lista Vazia" }) : res.json(carts);
+    return carts == null ? res.json({ error: "Null list" }) : res.json(carts);
 }
 
 export const delet = async (req: Request, res: Response) => {

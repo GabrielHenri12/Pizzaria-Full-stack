@@ -4,7 +4,7 @@ import * as PizzasServices from "../Services/PizzaServices"
 export const home = async (req:Request, res:Response)=>{
     const listaPizza = await PizzasServices.findAll();
     if(listaPizza == null){
-        return res.json({Error: "Lista vazia"})
+        return res.json({error: "Lista vazia"})
     }
     res.json(listaPizza)
 }

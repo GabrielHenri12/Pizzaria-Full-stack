@@ -5,11 +5,12 @@ import bcrypt from "bcrypt"
 
 export const register = async (req: Request, res: Response) => {
     const {name, lastName, password, email} = req.body;
+
     const testUser = await UserServices.findUser(email);
-    
     if (testUser != null) {
         return res.json({ error: 'Email já existe'});
     }
+
     if (name && lastName && password && email) {
         const passwordCrypt = bcrypt.hashSync(password, 10)
 
@@ -30,11 +31,9 @@ export const login = async (req: Request, res: Response) => {
 
     try {
         const User = await UserServices.findUser(email);
-
         if (User == null) throw new Error("User not found");
 
         const match = bcrypt.compareSync(password, User.password);
-
         if (!match) throw new Error("invalid Password");
 
         const token = generateToken(User.email);
