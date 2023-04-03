@@ -12,10 +12,18 @@ export const create = async (size: string, length: number, id_pizza: number, id_
 }
 
 export const FindCarts = async (id: number): Promise<Cart[]> => {
-    return await Cart.findAll({ where: { id }, include: Pizzas });
+    return await Cart.findAll({
+        where: { id_user: id },
+        include: { 
+            model: Pizzas, 
+            as: 'Pizzas',
+            attributes: ['img', 'flavor', 'price', 'description'] 
+        },
+        attributes: ['id', 'length', 'size', 'id_user']
+    });
 }
 
-export const findByID = async(id: number): Promise<Cart | null> => {
+export const findByID = async (id: number): Promise<Cart | null> => {
     return await Cart.findByPk(id);
 }
 
