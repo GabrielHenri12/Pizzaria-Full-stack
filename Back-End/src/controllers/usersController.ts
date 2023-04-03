@@ -8,7 +8,8 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
     const testUser = await UserServices.findUser(email);
     if (testUser != null) {
-        return next(new Error('Email already exists'));
+        const err = new Error('Email already exists')
+        return next(err);
     }
 
     if (name && lastName && password && email) {
@@ -22,7 +23,8 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
         )
         return res.json(newUser)
     } else {
-        return next(Error('Any fiel is empty'))
+        const err = new Error('Any fiel is empty')
+        return next(err)
     }
 }
 
@@ -34,8 +36,10 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         if (User == null) return next(new Error("User not found"));
 
         const match = bcrypt.compareSync(password, User.password);
-        if (!match) return next(new Error("invalid Password"));
-
+        if (!match) {
+            const err = new Error("invalid Password");
+            return next(err);
+        }
         const token = generateToken(User.email);
         await User.update({ token });
 

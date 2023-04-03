@@ -28,8 +28,8 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next)=>{
     }else{
         res.status(400)
     }
-    if(err.mensage){
-        res.json({Erro: err.mensage})
+    if(err.message){
+        res.json({Erro: err.message})
     }else{
         res.json({ error: 'Ocorreu algum erro.' });
     }
