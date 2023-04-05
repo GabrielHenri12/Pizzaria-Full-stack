@@ -1,17 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import * as PizzasServices from "../Services/PizzaServices"
+import * as PizzasServices from "../Repository/PizzaRepository"
 
 export const home = async (req:Request, res:Response, next: NextFunction)=>{
     const listaPizza = await PizzasServices.findAll();
-    if(listaPizza == null){
-        return next(new Error("Null list"));
-    }
-    res.json(listaPizza)
+
+    listaPizza ? res.json(listaPizza) : next(new Error("Null list"));
 }
 
-export const opcao = async (req:Request, res:Response)=>{
+export const opcao = async (req:Request, res:Response, next: NextFunction)=>{
     const pizza = await PizzasServices.findByID(parseInt(req.params.id))
-
-    res.json(pizza)
+    
+    pizza ? res.json(pizza) : next(new Error("Pizza não encontrada"))
 }
 
