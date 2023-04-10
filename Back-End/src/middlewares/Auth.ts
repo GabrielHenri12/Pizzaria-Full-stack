@@ -6,7 +6,7 @@ import User from "../database/models/user"
 
 dotenv.config()
 
-const notAuthorized: object = { status: 401, msg: "Usuario não autorizado!" };
+const notAuthorized: object = { status: 401, mensagem: "Usuario não autorizado!" };
 
 const options = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
