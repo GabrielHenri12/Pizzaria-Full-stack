@@ -1,6 +1,6 @@
 import { CartRepository } from "../Repository/CartRepository";
 import { CartType } from "../Types/CartTypes";
-import Cart from "../database/models/cart";
+import Cart from "../database/models/carrinho";
 
 export const addToCart = async(CartData: CartType, _cartRepository: CartRepository): Promise<Boolean>=>{
     try{

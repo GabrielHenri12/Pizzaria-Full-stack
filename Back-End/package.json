@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --detectOpenHandles",
     "start-dev": "nodemon --exec ts-node src/server.ts"
   },
   "repository": {
@@ -40,6 +40,7 @@
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.12",
+    "@types/jest": "^29.5.0",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/mongoose": "^5.11.97",
     "@types/multer": "^1.4.7",
@@ -48,7 +49,9 @@
     "@types/passport-jwt": "^3.0.6",
     "@types/sequelize": "^4.28.14",
     "@types/validator": "^13.7.6",
+    "jest": "^29.5.0",
     "sequelize-cli": "^6.6.0",
+    "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1"
   }
 }

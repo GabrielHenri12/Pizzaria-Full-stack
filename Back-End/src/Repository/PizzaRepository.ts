@@ -1,4 +1,4 @@
-import Pizzas from "../database/models/pizzas";
+import Pizzas from "../database/models/produto";
 
 export const findAll = async (): Promise<Pizzas[]> => {
     return await Pizzas.findAll({

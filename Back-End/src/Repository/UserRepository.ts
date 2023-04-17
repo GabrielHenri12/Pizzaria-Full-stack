@@ -1,5 +1,5 @@
 import { userType } from "../Types/UserTypes";
-import User from "../database/models/user";
+import User from "../database/models/usuario";
 export class UserRepository {
     public addUser = async (NewUser: userType): Promise<User> => {
         return await User.create(

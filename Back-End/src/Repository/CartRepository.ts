@@ -1,5 +1,5 @@
-import Cart from "../database/models/cart";
-import Pizzas from "../database/models/pizzas";
+import Cart from "../database/models/carrinho";
+import Pizzas from "../database/models/produto";
 import { CartType } from "../Types/CartTypes";
 
 export class CartRepository {

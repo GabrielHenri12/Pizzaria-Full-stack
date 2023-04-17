@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import passport from "passport";
 import { Strategy as JWTstrategy, ExtractJwt } from "passport-jwt";
 import dotenv from "dotenv";
-import User from "../database/models/user"
+import User from "../database/models/usuario"
 
 dotenv.config()
 
