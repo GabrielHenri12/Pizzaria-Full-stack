@@ -1,28 +1,30 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from "../config/database";
+import Tamanho from './tamanho';
+import Preco from './preco';
 
-class Pizzas extends Model {
+export class Produtos extends Model {
     id!: number;
-    flavor!: string;
-    img!: string;
-    price!: number;
-    description!: string;
+    NOME!: string;
+    DESCRICAO!: string;
+    TIPO!: string;
+    IMG!: string;
 }
 
-Pizzas.init({
-    id: {
-        primaryKey: true,
-        autoIncrement: true,
-        type: DataTypes.INTEGER
-    },
-    flavor: { type: DataTypes.STRING },
-    img: { type: DataTypes.STRING },
-    price: { type: DataTypes.FLOAT },
-    description: { type: DataTypes.STRING }
+Produtos.init({
+    NOME: { type: DataTypes.STRING },
+    DESCRICAO: { type: DataTypes.STRING },
+    TIPO: { type: DataTypes.STRING },
+    IMG: { type: DataTypes.STRING }
 }, {
     sequelize: sequelize,
-    tableName: 'pizzas',
+    tableName: 'PRODUTOS',
     timestamps: false
 })
 
-export default Pizzas;
+Produtos.hasMany(Preco, { foreignKey: 'ID_PRODUTO' });
+Preco.belongsTo(Produtos, { foreignKey: 'ID_PRODUTO' });
+Tamanho.hasMany(Preco, { foreignKey: 'ID_TAMANHO' });
+Preco.belongsTo(Tamanho, { foreignKey: 'ID_TAMANHO' });
+
+export default Produtos;

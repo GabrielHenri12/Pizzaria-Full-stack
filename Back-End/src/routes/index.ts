@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { privateRouts } from "../middlewares/Auth";
-import * as pizzaController from "../controllers/pizzaController";
+import * as pizzaController from "../controllers/ProdutoController";
 import * as cartController from "../controllers/cartController";
 import * as usersController from "../controllers/usersController"
 import * as ValidatorsUser from "../middlewares/ValidatorsUser";
