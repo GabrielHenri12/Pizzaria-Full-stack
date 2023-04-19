@@ -1,7 +1,6 @@
 import { ProdutoType } from "../Types/ProdutoTypes";
-import Produtos from "../database/models/produto";
 
-export const ProdutoConvertido = (produto: any)=>{
+export const ProdutoConvertido = (produto: any): ProdutoType =>{
     const produtoDTO: ProdutoType  = {
         id: produto.id,
         nome: produto.NOME,
