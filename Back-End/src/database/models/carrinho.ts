@@ -1,7 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/database";
-import Pizzas from "./pizzas";
-import User from "./user";
+import Pizzas from "./produto";
+import User from "./usuario";
 
 export class Cart extends Model {
     id!: number;

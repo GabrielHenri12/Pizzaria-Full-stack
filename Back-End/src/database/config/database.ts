@@ -14,7 +14,6 @@ const databaseConfig: Options = {
 };
 
 const sequelize = new Sequelize(databaseConfig);
-// sequelize.sync({force: true});
 sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');

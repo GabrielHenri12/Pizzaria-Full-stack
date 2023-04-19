@@ -1,37 +1,42 @@
 import { Request, Response, NextFunction } from "express";
-import * as CartServices from "../Services/CartServices";
-import * as UserServices from "../Services/UserServices";
+import { CartType } from "../Types/CartTypes";
+import { CartRepository } from "../Repository/CartRepository";
+import * as CartServices from "../Services/CartServecies";
 
 export const addCart = async (req: Request, res: Response, next: NextFunction) => {
-    const { size, length, id_pizza } = req.body;
-    const user = await UserServices.findUserByID(req.user as number)
+    const CartData: CartType = req.body;
+    CartData.id_user = req.user as number;
+    const _cartRepository = new CartRepository;
 
-    if (user == null) {
-        return next(new Error('token of user invalid'))
+    try {
+        await CartServices.addToCart(CartData, _cartRepository);
+        res.json({ status: true, mensagem: "Pizza adicionada com sucesso" })
+    } catch (err) {
+        next(err)
     }
-    if (!id_pizza || !length || !size) {
-        return next(Error('something is missing'));
-    }
-
-    const newItem = await CartServices.create(size, length, id_pizza, user.id);
-    return res.json(newItem)
 };
 
-export const homeCart = async (req: Request, res: Response, next: NextFunction) => {
+export const FindAllCarts = async (req: Request, res: Response, next: NextFunction) => {
+    const _cartRepository = new CartRepository;
+    const id_user: number = req.user as number;
 
-    const user = await UserServices.findUserByID(req.user as number)
-    if (user == null) return next(new Error("User not find"))
+    try {
+        const carts = await CartServices.FindAll(id_user, _cartRepository);
+        res.status(200).json(carts)
+    } catch (err) {
+        next(err)
+    }
 
-    const carts = await CartServices.FindCarts(user.id);
-    return carts == null ? next(new Error("Null list")) : res.json(carts);
 }
 
 export const delet = async (req: Request, res: Response, next: NextFunction) => {
-    const cart = await CartServices.findByID(parseInt(req.params.id));
-    if (cart == null) {
-        return next(new Error("Cart is null"))
-    }
+    const _cartRepository = new CartRepository;
+    const id_cart: number = req.body;
 
-    await CartServices.deletCart(cart.id);
-    return res.json({ sucess: true });
+    try {
+        await CartServices.DeletCart(id_cart, _cartRepository);
+        res.json({ sucess: true, mensagem: "Pizza excluida com sucesso" });
+    } catch (err) {
+        next(err)
+    }
 }
