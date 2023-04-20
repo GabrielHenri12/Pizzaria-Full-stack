@@ -4,7 +4,7 @@ import Tamanho from './tamanho';
 import Preco from './preco';
 
 export class Produtos extends Model {
-    id!: number;
+    ID!: number;
     NOME!: string;
     DESCRICAO!: string;
     TIPO!: string;
@@ -12,6 +12,12 @@ export class Produtos extends Model {
 }
 
 Produtos.init({
+    ID: {
+        primaryKey: true,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        field: "ID"
+    },
     NOME: { type: DataTypes.STRING },
     DESCRICAO: { type: DataTypes.STRING },
     TIPO: { type: DataTypes.STRING },

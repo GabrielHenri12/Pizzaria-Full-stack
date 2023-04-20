@@ -11,10 +11,10 @@ export class ProdutosRepositorio implements IProdutosFuncoes<Produtos>{
 
     public async Consulte(): Promise<Produtos[]> {
         return await Produtos.findAll({
-            attributes: ['id', 'NOME', 'DESCRICAO', 'TIPO', 'IMG'],
+            attributes: ['ID', 'NOME', 'DESCRICAO', 'TIPO', 'IMG'],
             include: [{
                 model: Preco,
-                attributes: ['id', 'VALOR'],
+                attributes: ['ID', 'VALOR'],
                 include: [{
                     model: Tamanho,
                     attributes: ['NOME']
@@ -26,10 +26,10 @@ export class ProdutosRepositorio implements IProdutosFuncoes<Produtos>{
     public async ConsultePorID(ID: number): Promise<Produtos | null> {
         return await Produtos.findByPk(ID,
             {
-                attributes: ['id', 'NOME', 'DESCRICAO', 'TIPO', 'IMG'],
+                attributes: ['ID', 'NOME', 'DESCRICAO', 'TIPO', 'IMG'],
                 include: [{
                     model: Preco,
-                    attributes: ['id', 'VALOR'],
+                    attributes: ['ID', 'VALOR'],
                     include: [{
                         model: Tamanho,
                         attributes: ['NOME']

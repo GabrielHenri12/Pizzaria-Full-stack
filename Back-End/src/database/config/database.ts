@@ -8,9 +8,12 @@ const databaseConfig: Options = {
     database: process.env.PGDATABASE,
     username: process.env.PGUSER,
     password: process.env.PGPASSWORD,
-    define: {
-        timestamps: true
-    },
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false // This line is for development only
+      }
+    }
 };
 
 const sequelize = new Sequelize(databaseConfig);
