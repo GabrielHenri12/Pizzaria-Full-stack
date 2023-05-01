@@ -1,7 +1,0 @@
-
-nyc.config.js
-node_modules/
-tests/
-build/
-src/database/config
-src/database/models/index.ts
