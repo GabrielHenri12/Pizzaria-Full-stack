@@ -2,7 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/database";
 
 export class User extends Model {
-    id!: number;
+    ID!: number;
     name!: string;
     lastName!: string;
     email!: string;
@@ -11,10 +11,11 @@ export class User extends Model {
 };
 
 User.init({
-    id: {
+    ID: {
         primaryKey: true,
         autoIncrement: true,
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        field: "ID"
     },
     name: { type: DataTypes.STRING },
     lastName: { type: DataTypes.STRING },
@@ -23,7 +24,7 @@ User.init({
     token: { type: DataTypes.STRING }
 }, {
     sequelize: sequelize,
-    tableName: "user",
+    tableName: "USUARIOS",
     timestamps: false
 })
 

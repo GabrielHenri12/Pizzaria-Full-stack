@@ -30,7 +30,7 @@ export class ProdutoServicos implements IProdutosFuncoes<ProdutoType>{
     }
 
 
-    Adicionar(dados: ProdutoType): Promise<void> {
+    Adicionar(dados: ProdutoType): Promise<ProdutoType> {
         throw new Error("Method not implemented.");
     }
 
@@ -38,8 +38,8 @@ export class ProdutoServicos implements IProdutosFuncoes<ProdutoType>{
         throw new Error("Method not implemented.");
     }
 
-    Deletar(ID: number): Promise<void> {
-        throw new Error("Method not implemented.");
+    public async Deletar(ID: number): Promise<void> {
+        await this._produtosRepositorio.Deletar(ID);
     }
     
 }

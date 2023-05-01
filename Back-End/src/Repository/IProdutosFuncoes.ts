@@ -1,6 +1,6 @@
 export interface IProdutosFuncoes<T> {
 
-    Adicionar (dados: T):Promise<void>
+    Adicionar (dados: T):Promise<T>
 
     Consulte (): Promise<T[]>
 
