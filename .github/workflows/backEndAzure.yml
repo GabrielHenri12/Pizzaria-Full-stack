@@ -46,6 +46,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
+          path: |
+            back-end/dist/**
+            back-end/node_modules/**
+            back-end/package.json
 
       - name: "Deploy to Azure Web App"
         uses: azure/webapps-deploy@v2
@@ -54,7 +58,4 @@ jobs:
           app-name: "apigh"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AFE1346B0A9B42418B032AC2557B801A }}
-          package: |
-            back-end/dist/**
-            back-end/node_modules/**
-            back-end/package.json
+          package: .
