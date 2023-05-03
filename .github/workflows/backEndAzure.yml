@@ -50,5 +50,5 @@ jobs:
         with:
           app-name: "apigh"
           slot-name: ""
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AFE1346B0A9B42418B032AC2557B801A }}
+          publish-profile: ${{ secrets.CREDENCIAISAZURE }}
           package: .
