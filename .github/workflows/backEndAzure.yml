@@ -37,9 +37,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    environment:
-      name: "Production"
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job
@@ -54,9 +51,7 @@ jobs:
 
       - name: "Deploy to Azure Web App"
         uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
         with:
           app-name: "apigh"
-          slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AFE1346B0A9B42418B032AC2557B801A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: .
