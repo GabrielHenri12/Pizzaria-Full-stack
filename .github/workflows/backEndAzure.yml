@@ -29,7 +29,7 @@ jobs:
         run: npm run build
 
       - name: Remove unnecessary files from back-end
-        run: rm -rf Back-End/src
+        run: Remove-Item -Recurse -Force Back-End/src
         
 
   deploy:
