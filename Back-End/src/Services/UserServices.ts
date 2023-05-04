@@ -1,6 +1,6 @@
 import {UserRepository} from "../Repository/UserRepository";
 import { userType } from "../Types/UserTypes";
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import { generateToken } from "../Helpers/GenerateToken";
 
 export class UserServices {
