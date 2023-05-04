@@ -55,3 +55,4 @@ jobs:
           app-name: "apigh"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: .
+          sync-options: --delete
