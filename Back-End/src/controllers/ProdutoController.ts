@@ -14,9 +14,9 @@ class ProdutoController {
     }
 
     public static ConsultePorID = async (req: Request, res: Response, next: NextFunction) => {
-        const tes = await _produtoServicos.ConsultePorID(parseInt(req.params.id));
+        const produto = await _produtoServicos.ConsultePorID(parseInt(req.params.id));
 
-        tes ? res.json(tes) : next(new Error("Pizza não encontrada"))
+        produto ? res.json(produto) : next(new Error("Pizza não encontrada"))
     }
 }
 
