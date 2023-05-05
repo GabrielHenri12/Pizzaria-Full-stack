@@ -12,13 +12,13 @@ export class ProdutoServicos implements IProdutosFuncoes<ProdutoType>{
     
     public async Consulte(): Promise<ProdutoType[]> {
         const produtos = await this._produtosRepositorio.Consulte();
-        const produtosDTO: ProdutoType[]  = produtos.map((produto: any) => (ProdutoConvertido(produto)));
+        const produtosDTO: ProdutoType[]  = produtos?.map(produto => (ProdutoConvertido(produto)));
 
         return produtosDTO;
     }
     
     public async ConsultePorID(ID: number): Promise<ProdutoType> {
-        const produto: any = await this._produtosRepositorio.ConsultePorID(ID);
+        const produto = await this._produtosRepositorio.ConsultePorID(ID);
         if(produto == null) throw new Error("Produto não encontrado");
         const produtoDTO: ProdutoType  = ProdutoConvertido(produto);
 
