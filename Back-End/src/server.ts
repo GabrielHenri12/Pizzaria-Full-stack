@@ -39,4 +39,8 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next)=>{
 
 server.use(errorHandler)
 
-server.listen(process.env.PORT);
+const port = process.env.PORT || 8080
+
+server.listen(port, ()=>{
+    console.log("Server rodando na porta:", port)
+});

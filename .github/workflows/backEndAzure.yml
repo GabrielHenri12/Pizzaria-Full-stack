@@ -27,35 +27,32 @@ jobs:
       - name: Build back-end
         working-directory: Back-End
         run: npm run build
-        
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: Back-End
+          path: |
+            back-end/node_modules/**
+            back-end/dist/**
+            back-end/package.json
+            back-end/package-lock.json
+            back-end/tsconfig.json
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
-    environment:
-      name: "Production"
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
           name: node-app
-          path: |
-            back-end/dist/**
-            back-end/node_modules/**
-            back-end/package.json
 
       - name: "Deploy to Azure Web App"
         uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
         with:
           app-name: "apigh"
-          slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AFE1346B0A9B42418B032AC2557B801A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: .
+          sync-options: --delete

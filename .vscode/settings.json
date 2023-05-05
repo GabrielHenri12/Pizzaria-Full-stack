@@ -1,0 +1,11 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/270f8b86-a72b-4f91-9288-622a3787725f/resourceGroups/E-Commerce/providers/Microsoft.Web/sites/apigh",
+    "appService.deploySubpath": "Back-End",
+    "appService.zipIgnorePattern": [
+        ".env",
+        "src{,/**}",
+        "tsconfig.json",
+        ".gitignore",
+        "jest.config.js"
+    ]
+}
