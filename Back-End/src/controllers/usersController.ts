@@ -1,31 +1,36 @@
 import { NextFunction, Request, Response } from 'express';
-import {UserRepository} from "../Repository/UserRepository";
-import  {UserServices} from '../Services/UserServices';
-import { userType } from '../Types/UserTypes';
+import { UsuarioRepositorio } from "../Repository/UsuarioRepositorio";
+import { UsuarioServicos } from '../Services/UsuarioServicos';
+import { UsuarioType } from '../Types/UsuarioTypes';
 
-export const register = async (req: Request, res: Response, next: NextFunction) => {
-    const user: userType = req.body;
-    const userRepository = new UserRepository;
-    const _userServices = new UserServices(userRepository)
+class UsuarioController {
 
-    try{
-        await _userServices.addUser(user)
-        return res.json({status: true, data: "Deu Certo"})
-    }catch(err){
-        return next(err)
+    public static async register(req: Request, res: Response, next: NextFunction) {
+        const user: UsuarioType = req.body;
+        const userRepository = new UsuarioRepositorio;
+        const _userServices = new UsuarioServicos(userRepository)
+
+        try {
+            await _userServices.Registrar(user)
+            return res.json({ status: true, data: "Deu Certo" })
+        } catch (err) {
+            return next(err)
+        }
+
     }
-    
+
+    public static async Logar(req: Request, res: Response, next: NextFunction) {
+        const user: UsuarioType = req.body;
+        const userRepository = new UsuarioRepositorio;
+        const _userServices = new UsuarioServicos(userRepository);
+
+        try {
+            const UserToken = await _userServices.Logar(user);
+            return res.json({ status: true, data: UserToken });
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
-export const login = async (req: Request, res: Response, next: NextFunction) => {
-    const user: userType = req.body;
-    const userRepository = new UserRepository;
-    const _userServices = new UserServices(userRepository);
-
-    try {
-        const UserToken = await _userServices.loginUser(user);
-        return res.json({ status: true, data: UserToken });
-    } catch (error) {
-        next(error);
-    }
-}
+export default UsuarioController;

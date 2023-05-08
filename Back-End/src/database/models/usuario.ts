@@ -1,31 +1,39 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/database";
 
-export class User extends Model {
+export class Usuario extends Model {
     ID!: number;
-    name!: string;
-    lastName!: string;
-    email!: string;
-    password!: string;
-    token!: string;
+    NOME!: string;
+    SOBRENOME!: string;
+    CPF!: string;
+    CREDENCIAL!: string;
+    TELEFONE!: string;
+    IDADE!: number;
+    EMAIL!: string;
+    SENHA!: string;
+    TOKEN!: string;
 };
 
-User.init({
+Usuario.init({
     ID: {
         primaryKey: true,
         autoIncrement: true,
         type: DataTypes.INTEGER,
         field: "ID"
     },
-    name: { type: DataTypes.STRING },
-    lastName: { type: DataTypes.STRING },
-    email: { type: DataTypes.STRING },
-    password: { type: DataTypes.STRING },
-    token: { type: DataTypes.STRING }
+    NOME: { type: DataTypes.STRING },
+    SOBRENOME: { type: DataTypes.STRING },
+    CPF: { type: DataTypes.STRING },
+    CREDENCIAL: { type: DataTypes.STRING },
+    TELEFONE: { type: DataTypes.STRING },
+    IDADE: { type: DataTypes.INTEGER },
+    EMAIL: { type: DataTypes.STRING },
+    SENHA: { type: DataTypes.STRING },
+    TOKEN: { type: DataTypes.STRING },
 }, {
     sequelize: sequelize,
     tableName: "USUARIOS",
     timestamps: false
 })
 
-export default User
+export default Usuario;
