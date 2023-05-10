@@ -20,12 +20,12 @@ class UsuarioController {
     }
 
     public static async Logar(req: Request, res: Response, next: NextFunction) {
-        const user: UsuarioType = req.body;
+        const {EMAIL, SENHA} = req.body;
         const userRepository = new UsuarioRepositorio;
         const _userServices = new UsuarioServicos(userRepository);
 
         try {
-            const UserToken = await _userServices.Logar(user);
+            const UserToken = await _userServices.Logar(EMAIL, SENHA);
             return res.json({ status: true, data: UserToken });
         } catch (error) {
             next(error);
