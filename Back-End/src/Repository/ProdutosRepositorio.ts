@@ -1,12 +1,13 @@
 import Produtos from "../database/models/produto";
-import { IProdutosFuncoes } from "./IProdutosFuncoes";
+import { IRepositorio } from "./IRepositorio";
 import Preco from "../database/models/preco";
 import Tamanho from "../database/models/tamanho";
 
-export class ProdutosRepositorio implements IProdutosFuncoes<Produtos>{
+export class ProdutosRepositorio implements IRepositorio<Produtos>{
 
-    public async Adicionar(dados: Produtos): Promise<Produtos> {
-        return await Produtos.create({ dados });
+    public async Adicionar(dados: Produtos): Promise<void> {
+        await Produtos.create({ dados });
+        return
     }
 
     public async Consulte(): Promise<Produtos[]> {
@@ -38,12 +39,12 @@ export class ProdutosRepositorio implements IProdutosFuncoes<Produtos>{
             });
     }
 
-    public async ConsulteParcial(): Promise<Produtos[]> {
+    public async ConsulteParcial(valor: string): Promise<Produtos | null> {
         throw new Error("Method not implemented.");
     }
 
 
-    public async Editar(dados: Produtos): Promise<Produtos> {
+    public async Editar(dados: Produtos): Promise<void> {
         throw new Error("Method not implemented.");
     }
 
