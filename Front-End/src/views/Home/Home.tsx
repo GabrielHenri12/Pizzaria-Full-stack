@@ -1,24 +1,42 @@
+import { useEffect, useState } from 'react'
 import CardHome from '../../components/Cards/CardHome';
 import api from '../../services/Api'
 import './Home.css'
-import { ProdutoType } from '../../Models/Produto';
-import { useQuery } from 'react-query';
-import { busqueTodosProdutos } from '../../Controller/ProdutoController';
+
+export type list = {
+    id: number;
+    sabor: string;
+    img: string;
+    tamanho: string;
+    valor: number;
+    quantidade: number;
+    descricao: string;
+}
 
 export default () => {
-    const { data, isLoading, isError, error } = useQuery('products', busqueTodosProdutos, {
-        staleTime: 5 * 60 * 1000, // 5 minutos
-        cacheTime: 30 * 60 * 1000 // 30 minutos
-    });
-    console.log(data, isLoading, isError, error)
-    if (isLoading) {
-        return <span>Carregando...</span>
-    };
+
+    const [list, setList] = useState<list[]>();
+    const [loadind, setLoadind] = useState<boolean>(false)
+
+    useEffect(() => {
+        loadingPage()
+    }, []);
+
+    const loadingPage =async ()=>{
+        try {
+            let response = await api.get('/home')
+            setList(response.data.listaPizza);
+            setLoadind(true);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     function addPizza(id: number) {
         let pizza = { tamanho: 'Grande', quantidade: 1, id }
         api
             .post('/carrinho/adicionar/', pizza)
-            .then(() => { alert('Pizza Adicionada') })
+            .then(() => { alert('Pizza Adicionada')})
             .catch(err => console.log(err))
         return
     };
@@ -28,8 +46,9 @@ export default () => {
             <h2 className="title">Sabores</h2>
             <div className="pizza--size">
                 <ul className="ul">
-                    {data.data.map((item: ProdutoType) => (
-                        <CardHome item={item} addPizza={addPizza} />
+                    {loadind === false && <span>Carregando...</span>}
+                    {loadind === true && list && list.map((item: list) => (
+                        <CardHome item={item} addPizza={addPizza}/>
                     ))}
                 </ul>
             </div>

@@ -22,16 +22,16 @@ export default () => {
 
     function login(event: any) {
         event.preventDefault();
-        let user = { EMAIL: email.value, SENHA: password.value }
+        let user = { email: email.value, password: password.value }
         setLoading(true)
         api
-            .post("entrar/", user)
+            .post("/user/login/", user)
             .then(response => {
                 if (response.data.status == false) {
                     setErr(response.data.error)
                     setLoading(false)
                 } else {
-                    signIn(response.data.data)
+                    signIn(response.data.token)
                     setTimeout(loggout, 5000000)
                     setLoading(false)
                     navigate('/')
