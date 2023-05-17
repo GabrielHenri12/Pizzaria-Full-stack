@@ -1,8 +1,8 @@
+import { IUsuarioRepositorio } from "../Repository/IUsuarioRepositorio";
 import { UsuarioType } from "../Types/UsuarioTypes";
-import { IRepositorio } from "../Repository/IRepositorio";
 import bcrypt from "bcryptjs";
-
-export class UsuarioRepositorioMock implements IRepositorio<UsuarioType> {
+export class UsuarioRepositorioMock implements IUsuarioRepositorio {
+  
   private usuarios: UsuarioType[] = [];
 
   public async Adicionar(UsuarioDados: UsuarioType): Promise<void> {
@@ -27,6 +27,10 @@ export class UsuarioRepositorioMock implements IRepositorio<UsuarioType> {
       (usuario) => usuario.ID === id
     );
     return Promise.resolve(usuario || null);
+  }
+
+  public async updatToken(ID: number, TOKEN: string): Promise<void> {
+    return Promise.resolve()
   }
 
   Editar(dados: UsuarioType): Promise<void> {

@@ -1,32 +1,36 @@
-import { UsuarioRepositorio } from "../Repository/UsuarioRepositorio";
+import bcrypt from "bcryptjs"
 import { UsuarioType } from "../Types/UsuarioTypes";
 import { GerarToken } from "../Helpers/GeradorDeToken";
-import { IRepositorio } from "../Repository/IRepositorio";
-import bcrypt from "bcryptjs"
+import { ErrorCustom } from "../Error/ErrorType";
+import { Callback, Erro, Resultado } from "../utilities/Callback";
+import { IUsuarioRepositorio } from "../Repository/IUsuarioRepositorio";
 
 export class UsuarioServicos {
+    private readonly _userRepository: IUsuarioRepositorio;
 
-    private readonly _userRepository: IRepositorio<UsuarioType>;
-
-    constructor(userRepository: IRepositorio<UsuarioType>) {
+    constructor(userRepository: IUsuarioRepositorio) {
         this._userRepository = userRepository
     }
 
-    public async Registrar(UsuarioDados: UsuarioType): Promise<{success: boolean, error?: string}> {
+    public async Registrar(UsuarioDados: UsuarioType): Promise<Callback<ErrorCustom, boolean>> {
         if (!await this._userRepository.ConsulteParcial(UsuarioDados.EMAIL)) {
             await this._userRepository.Adicionar(UsuarioDados);
-            return {success: true};
+            return Resultado(true);
         }
-
-        return {success: false, error: 'Email já cadastrado'};
+        return Erro(new ErrorCustom("Email já cadastrado", false, 400));
     }
 
-    public async Logar(EMAIL: string, SENHA: string): Promise<string> {
+    public async Logar(EMAIL: string, SENHA: string): Promise<Callback<ErrorCustom, string>> {
         const user = await this._userRepository.ConsulteParcial(EMAIL)
 
-        if (!user) throw new Error("Email não registrado")
-        if (!bcrypt.compareSync(SENHA, user.SENHA)) throw new Error("Senha incorreta");
-
-        return GerarToken(user.EMAIL);
+        if(!user){
+           return Erro(new ErrorCustom("Email não registrado", false, 404))
+        }
+        if(!bcrypt.compareSync(SENHA, user.SENHA)) {   
+           return Erro(new ErrorCustom("Senha incorreta", false, 401))
+        }
+        const token = GerarToken(user.EMAIL);
+        await this._userRepository.updatToken(user.ID, token)
+        return Resultado(token);
     }
 }

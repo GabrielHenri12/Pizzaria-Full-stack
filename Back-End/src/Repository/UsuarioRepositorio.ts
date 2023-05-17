@@ -1,10 +1,10 @@
-import { Usuario } from "../database/models/usuario";
+import { IUsuarioRepositorio } from "./IUsuarioRepositorio";
 import { UsuarioType } from "../Types/UsuarioTypes";
 import { Conversao } from "../utilities/Conversao";
-import { IRepositorio } from "./IRepositorio";
+import { Usuario } from "../database/models/usuario";
 import bcrypt from "bcryptjs"
 
-export class UsuarioRepositorio implements IRepositorio<UsuarioType>{
+export class UsuarioRepositorio implements IUsuarioRepositorio{
 
     public Adicionar = async (UsuarioDados: UsuarioType): Promise<void> => {
 
@@ -21,7 +21,6 @@ export class UsuarioRepositorio implements IRepositorio<UsuarioType>{
             })
             return;
         } catch (Erro) {
-            console.log(Erro)
             throw new Error("Algo deu errado na ação, confira os logs")
         }
     };
@@ -32,7 +31,6 @@ export class UsuarioRepositorio implements IRepositorio<UsuarioType>{
             const UsuariosModel = await Usuario.findAll();
             return UsuariosModel.map(usuario => Conversao.ConverterUsuarioParaType(usuario));
         } catch (Erro) {
-            console.log(Erro)
             throw new Error("Algo deu errado na ação, confira os logs")
         }
     }
@@ -43,24 +41,40 @@ export class UsuarioRepositorio implements IRepositorio<UsuarioType>{
             const UsuarioModel = await Usuario.findOne({ where: { EMAIL: valor } });
             return UsuarioModel ? Conversao.ConverterUsuarioParaType(UsuarioModel) : null
         } catch (Erro) {
-            console.log(Erro)
             throw new Error("Algo deu errado na ação, confira os logs")
         }
     }
 
     public ConsultePorID = async (id: number): Promise<UsuarioType | null> => {
-        
+
         try {
             const UsuarioModel = await Usuario.findByPk(id);
             return UsuarioModel ? Conversao.ConverterUsuarioParaType(UsuarioModel) : null
         } catch (Erro) {
-            console.log(Erro)
             throw new Error("Algo deu errado na ação, confira os logs")
         }
     }
 
-    public Editar(dados: UsuarioType): Promise<void> {
-        throw new Error("Method not implemented.");
+    async Editar(UsuarioDados: UsuarioType): Promise<void> {
+        const user = await Usuario.findByPk(UsuarioDados.ID);
+        if(!user) return;
+        user.NOME = UsuarioDados.NOME;
+        user.SOBRENOME = UsuarioDados.SOBRENOME;
+        user.CPF = UsuarioDados.CPF;
+        user.IDADE = UsuarioDados.IDADE;
+        user.EMAIL = UsuarioDados.EMAIL;
+        user.SENHA = bcrypt.hashSync(UsuarioDados.SENHA, 10);
+        user.CREDENCIAL = UsuarioDados.CREDENCIAL;
+        user.TELEFONE = UsuarioDados.TELEFONE;
+        user.TOKEN = UsuarioDados.TOKEN;
+        await user.save();
+    }
+
+    async updatToken(ID: number, TOKEN: string): Promise<void> {
+        const user = await Usuario.findByPk(ID);
+        if(!user) return;
+        user.TOKEN = TOKEN;
+        await user.save();
     }
 
     public Deletar(ID: number): Promise<void> {
