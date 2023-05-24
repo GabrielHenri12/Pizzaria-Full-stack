@@ -18,10 +18,30 @@ Produtos.init({
         type: DataTypes.INTEGER,
         field: "ID"
     },
-    NOME: { type: DataTypes.STRING },
-    DESCRICAO: { type: DataTypes.STRING },
-    TIPO: { type: DataTypes.STRING },
-    IMG: { type: DataTypes.STRING }
+    NOME: {
+        type: DataTypes.STRING,
+        set(value: string) {
+            this.setDataValue('NOME', value.toLowerCase());
+        }
+    },
+    DESCRICAO: {
+        type: DataTypes.STRING,
+        set(value: string) {
+            this.setDataValue('DESCRICAO', value.toLowerCase());
+        }
+    },
+    TIPO: {
+        type: DataTypes.STRING,
+        set(value: string) {
+            this.setDataValue('TIPO', value.toLowerCase());
+        }
+    },
+    IMG: {
+        type: DataTypes.STRING,
+        set(value: string) {
+            this.setDataValue('IMG', value.toLowerCase());
+        }
+    }
 }, {
     sequelize: sequelize,
     tableName: 'PRODUTOS',
