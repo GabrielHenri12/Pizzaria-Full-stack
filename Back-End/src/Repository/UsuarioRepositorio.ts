@@ -3,6 +3,7 @@ import { UsuarioType } from "../Types/UsuarioTypes";
 import { Conversao } from "../utilities/Conversao";
 import { Usuario } from "../database/models/usuario";
 import bcrypt from "bcryptjs"
+import { ErrorCustom } from "../Error/ErrorType";
 
 export class UsuarioRepositorio implements IUsuarioRepositorio{
 
@@ -21,7 +22,7 @@ export class UsuarioRepositorio implements IUsuarioRepositorio{
             })
             return;
         } catch (Erro) {
-            throw new Error("Algo deu errado na ação, confira os logs")
+            throw new ErrorCustom("Algo deu errado na ação, confira os logs", false, 400)
         }
     };
 
