@@ -1,9 +1,9 @@
 import Produtos from "../database/models/produto";
-import { IRepositorio } from "./IRepositorio";
 import Preco from "../database/models/preco";
 import Tamanho from "../database/models/tamanho";
+import { IProdutoRepositorio } from "./IProdutoRepositorio";
 
-export class ProdutosRepositorio implements IRepositorio<Produtos>{
+export class ProdutosRepositorio implements IProdutoRepositorio{
 
     public async Adicionar(dados: Produtos): Promise<void> {
         await Produtos.create({ dados });
