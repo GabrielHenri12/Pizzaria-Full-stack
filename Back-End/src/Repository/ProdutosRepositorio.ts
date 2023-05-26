@@ -39,7 +39,7 @@ export class ProdutosRepositorio implements IProdutoRepositorio{
             });
     }
 
-    public async ConsulteParcial(valor: string): Promise<Produtos | null> {
+    public async ConsulteParcial(chave: string, valor: string): Promise<Produtos[] | null> {
         throw new Error("Method not implemented.");
     }
 

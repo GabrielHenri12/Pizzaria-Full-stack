@@ -27,8 +27,13 @@ export class ProdutoServicos{
         return Resultado(produtoDTO);
     }
 
-    public async Deletar(ID: number): Promise<void> {
-        await this._produtosRepositorio.Deletar(ID);
+    public async Deletar(ID: number): Promise<Callback<ErrorCustom, string>> {
+        try {
+            await this._produtosRepositorio.Deletar(ID);
+            return Resultado('Produto adicionado com sucesso');
+        } catch {
+            return Erro(new ErrorCustom('Ocorreu algum erro no processo', false, 400));
+        }
     }
 
 }
