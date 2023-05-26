@@ -32,4 +32,13 @@ export class PedidoServicos {
             return Erro(new ErrorCustom('Ocorreu algum erro no processo', false, 400));
         }
     }
+
+    public async Deletar(ID: number): Promise<Callback<ErrorCustom, string>> {
+        try {
+            await this._pedidoRepositorio.Deletar(ID);
+            return Resultado('Produto adicionado com sucesso');
+        } catch {
+            return Erro(new ErrorCustom('Ocorreu algum erro no processo', false, 400));
+        }
+    }
 }
