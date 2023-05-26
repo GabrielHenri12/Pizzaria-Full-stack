@@ -38,6 +38,22 @@ export class Conversao {
         return UsuarioType;
     }
 
+    public static ConverterUsuariotypeParaEntidade = (UsuarioDados: UsuarioType): Usuario => {
+        const UsuarioType = new Usuario({
+            ID: UsuarioDados.ID,
+            NOME: UsuarioDados.NOME,
+            SOBRENOME: UsuarioDados.SOBRENOME,
+            CPF: UsuarioDados.CPF,
+            IDADE: UsuarioDados.IDADE,
+            EMAIL: UsuarioDados.EMAIL,
+            SENHA: UsuarioDados.SENHA,
+            CREDENCIAL: UsuarioDados.CREDENCIAL,
+            TOKEN: UsuarioDados.TOKEN,
+            TELEFONE: UsuarioDados.TELEFONE
+        });
+        return UsuarioType;
+    }
+
     public static ConverterPedidoParaType = (item: any): PedidoType => {
         const usuario = item.Usuario.dataValues;
         const Preco = item.Preco.dataValues;
