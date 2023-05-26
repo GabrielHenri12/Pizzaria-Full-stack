@@ -5,9 +5,9 @@ import { Usuario } from "../database/models/usuario";
 import bcrypt from "bcryptjs"
 import { ErrorCustom } from "../Error/ErrorType";
 
-export class UsuarioRepositorio implements IUsuarioRepositorio{
+export class UsuarioRepositorio implements IUsuarioRepositorio {
 
-    public Adicionar = async (UsuarioDados: UsuarioType): Promise<void> => {
+    public async Adicionar(UsuarioDados: UsuarioType): Promise<void> {
 
         try {
             await Usuario.create({
@@ -26,39 +26,36 @@ export class UsuarioRepositorio implements IUsuarioRepositorio{
         }
     };
 
-    public Consulte = async (): Promise<UsuarioType[]> => {
+    public async Consulte(): Promise<Usuario[]> {
 
         try {
-            const UsuariosModel = await Usuario.findAll();
-            return UsuariosModel.map(usuario => Conversao.ConverterUsuarioParaType(usuario));
+            return await Usuario.findAll();
         } catch (Erro) {
             throw new Error("Algo deu errado na ação, confira os logs")
         }
     }
 
-    public ConsulteParcial = async (valor: string): Promise<UsuarioType | null> => {
+    public async ConsulteParcial(chave: string, valor: string): Promise<Usuario[] | null> {
 
         try {
-            const UsuarioModel = await Usuario.findOne({ where: { EMAIL: valor } });
-            return UsuarioModel ? Conversao.ConverterUsuarioParaType(UsuarioModel) : null
+            return await Usuario.findAll({ where: { [chave]: valor } });
         } catch (Erro) {
             throw new Error("Algo deu errado na ação, confira os logs")
         }
     }
 
-    public ConsultePorID = async (id: number): Promise<UsuarioType | null> => {
+    public async ConsultePorID(id: number): Promise<Usuario | null> {
 
         try {
-            const UsuarioModel = await Usuario.findByPk(id);
-            return UsuarioModel ? Conversao.ConverterUsuarioParaType(UsuarioModel) : null
+            return await Usuario.findByPk(id);
         } catch (Erro) {
             throw new Error("Algo deu errado na ação, confira os logs")
         }
     }
 
-    async Editar(UsuarioDados: UsuarioType): Promise<void> {
+    public async Editar(UsuarioDados: UsuarioType): Promise<void> {
         const user = await Usuario.findByPk(UsuarioDados.ID);
-        if(!user) return;
+        if (!user) return;
         user.NOME = UsuarioDados.NOME;
         user.SOBRENOME = UsuarioDados.SOBRENOME;
         user.CPF = UsuarioDados.CPF;
@@ -71,15 +68,15 @@ export class UsuarioRepositorio implements IUsuarioRepositorio{
         await user.save();
     }
 
-    async updatToken(ID: number, TOKEN: string): Promise<void> {
+    public async updatToken(ID: number, TOKEN: string): Promise<void> {
         const user = await Usuario.findByPk(ID);
-        if(!user) return;
+        if (!user) return;
         user.TOKEN = TOKEN;
         await user.save();
     }
 
-    public Deletar(ID: number): Promise<void> {
-        throw new Error("Method not implemented.");
+    public async Deletar(ID: number): Promise<void> {
+        await Usuario.destroy({ where: { ID } });
     }
 
 }

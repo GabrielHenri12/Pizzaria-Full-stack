@@ -4,7 +4,7 @@ export interface IRepositorio<T> {
 
     Consulte (): Promise<T[]>
 
-    ConsulteParcial (valor: string): Promise<T | null>
+    ConsulteParcial (chave: string,valor: string): Promise<T[] | null>
 
     ConsultePorID (ID: number): Promise<T | null>
 
