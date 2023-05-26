@@ -1,19 +1,24 @@
 import { Router } from "express";
 import { privateRouts } from "../middlewares/Auth";
 import ProdutoController from "../controllers/ProdutoController";
-import * as PedidoController from "../controllers/PedidoController";
-import UsuarioController from "../controllers/usersController"
-import * as ValidatorsUser from "../middlewares/ValidadorUsuario";
-import * as ValidatorsCart from "../middlewares/ValidadorPedido"
+import PedidoController from "../controllers/PedidoController";
+import UsuarioController from "../controllers/ususarioController"
+import * as ValidadorUsuario from "../middlewares/ValidadorUsuario";
+import * as ValidadorPedido from "../middlewares/ValidadorPedido"
 
 const router = Router();
 
+//Produtos
 router.get('/produtos', ProdutoController.Consulte);
 router.get('/produto/:id/', ProdutoController.ConsultePorID);
-router.get('/carrinho/', privateRouts, PedidoController.ConsultePorUsuario);
-router.post('/carrinho/adicionar/', privateRouts, ValidatorsCart.CartAddValidator, PedidoController.Adicionar);
-router.delete('/carrinho/excluir/:id', privateRouts, PedidoController.delet);
-router.post('/cadastrar/', ValidatorsUser.ValidadorRegistro, UsuarioController.register);
-router.post('/entrar/', ValidatorsUser.ValidadorLogin, UsuarioController.Logar);
+
+//Pedidos
+router.get('/pedidos/', privateRouts, PedidoController.ConsultePorUsuario);
+router.post('/pedido/adicionar/', privateRouts, ValidadorPedido.CartAddValidator, PedidoController.Adicionar);
+router.delete('/pedido/excluir/:id', privateRouts, PedidoController.Deletar);
+
+//Usuario
+router.post('/cadastrar/', ValidadorUsuario.ValidadorRegistro, UsuarioController.register);
+router.post('/entrar/', ValidadorUsuario.ValidadorLogin, UsuarioController.Logar);
 
 export default router
