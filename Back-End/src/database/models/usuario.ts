@@ -21,13 +21,29 @@ Usuario.init({
         type: DataTypes.INTEGER,
         field: "ID"
     },
-    NOME: { type: DataTypes.STRING },
-    SOBRENOME: { type: DataTypes.STRING },
+    NOME: {
+        type: DataTypes.STRING, set(value: string) {
+            this.setDataValue('NOME', value.toLowerCase());
+        }
+    },
+    SOBRENOME: {
+        type: DataTypes.STRING, set(value: string) {
+            this.setDataValue('SOBRENOME', value.toLowerCase());
+        }
+    },
     CPF: { type: DataTypes.STRING },
-    CREDENCIAL: { type: DataTypes.STRING },
+    CREDENCIAL: {
+        type: DataTypes.STRING, set(value: string) {
+            this.setDataValue('CREDENCIAL', value.toLowerCase());
+        }
+    },
     TELEFONE: { type: DataTypes.STRING },
     IDADE: { type: DataTypes.INTEGER },
-    EMAIL: { type: DataTypes.STRING },
+    EMAIL: {
+        type: DataTypes.STRING, set(value: string) {
+            this.setDataValue('EMAIL', value.toLowerCase());
+        }
+    },
     SENHA: { type: DataTypes.STRING },
     TOKEN: { type: DataTypes.STRING },
 }, {

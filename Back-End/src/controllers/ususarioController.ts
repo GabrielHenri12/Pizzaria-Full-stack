@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { UsuarioRepositorio } from "../Repository/UsuarioRepositorio";
 import { UsuarioServicos } from '../Services/UsuarioServicos';
 import { UsuarioType } from '../Types/UsuarioTypes';
+import { Conversao } from '../utilities/Conversao';
 
 class UsuarioController {
 
@@ -10,13 +11,11 @@ class UsuarioController {
         const userRepository = new UsuarioRepositorio;
         const _userServices = new UsuarioServicos(userRepository)
 
-        try {
-            await _userServices.Registrar(user)
-            return res.json({ status: true, data: "Deu Certo" })
-        } catch (err) {
-            return next(err)
+        const Resposta = await _userServices.Registrar(Conversao.ConverterUsuariotypeParaEntidade(user))
+        if(Resposta.isResultado()){
+            return res.json({ status: true, data: "Usuário registrado com sucesso" })
         }
-
+        return next(Resposta.valor)
     }
 
     public static async Logar(req: Request, res: Response, next: NextFunction) {
@@ -24,12 +23,12 @@ class UsuarioController {
         const userRepository = new UsuarioRepositorio;
         const _userServices = new UsuarioServicos(userRepository);
 
-        try {
-            const UserToken = await _userServices.Logar(EMAIL, SENHA);
-            return res.json({ status: true, data: UserToken });
-        } catch (error) {
-            next(error);
-        }
+            const Response = await _userServices.Logar(EMAIL, SENHA);
+            if(Response.isResultado()){
+                return res.json({ status: true, data: Response.valor });
+            }
+            next(Response.valor);
+        
     }
 }
 

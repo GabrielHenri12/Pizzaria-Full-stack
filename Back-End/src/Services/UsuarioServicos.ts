@@ -1,32 +1,48 @@
-import { UsuarioRepositorio } from "../Repository/UsuarioRepositorio";
-import { UsuarioType } from "../Types/UsuarioTypes";
-import { GerarToken } from "../Helpers/GeradorDeToken";
-import { IRepositorio } from "../Repository/IRepositorio";
 import bcrypt from "bcryptjs"
+import { GerarToken } from "../Helpers/GeradorDeToken";
+import { ErrorCustom } from "../Error/ErrorType";
+import { Callback, Erro, Resultado } from "../utilities/Callback";
+import { IUsuarioRepositorio } from "../Repository/IUsuarioRepositorio";
+import Usuario from "../database/models/usuario";
 
 export class UsuarioServicos {
+    private readonly _userRepository: IUsuarioRepositorio;
 
-    private readonly _userRepository: IRepositorio<UsuarioType>;
-
-    constructor(userRepository: IRepositorio<UsuarioType>) {
+    constructor(userRepository: IUsuarioRepositorio) {
         this._userRepository = userRepository
     }
 
-    public async Registrar(UsuarioDados: UsuarioType): Promise<{success: boolean, error?: string}> {
-        if (!await this._userRepository.ConsulteParcial(UsuarioDados.EMAIL)) {
-            await this._userRepository.Adicionar(UsuarioDados);
-            return {success: true};
+    public async Registrar(UsuarioDados: Usuario): Promise<Callback<ErrorCustom, boolean>> {
+        try{
+            if (!await this._userRepository.ConsulteParcial("EMAIL", UsuarioDados.EMAIL)) {
+                await this._userRepository.Adicionar(UsuarioDados);
+                return Resultado(true);
+            }
+            return Erro(new ErrorCustom("Email já cadastrado", false, 400));
+        } catch {
+            return Erro(new ErrorCustom("Ocorreu um erro ao se Registrar", false, 500));
         }
-
-        return {success: false, error: 'Email já cadastrado'};
     }
 
-    public async Logar(EMAIL: string, SENHA: string): Promise<string> {
-        const user = await this._userRepository.ConsulteParcial(EMAIL)
+    public async Logar(EMAIL: string, SENHA: string): Promise<Callback<ErrorCustom, string>> {
+        try {
+            const user = await this._userRepository.ConsulteParcial("EMAIL", EMAIL);
 
-        if (!user) throw new Error("Email não registrado")
-        if (!bcrypt.compareSync(SENHA, user.SENHA)) throw new Error("Senha incorreta");
+            if (!user) {
+                return Erro(new ErrorCustom("Email não registrado", false, 404));
+            }
 
-        return GerarToken(user.EMAIL);
+            const isPasswordValid = bcrypt.compareSync(SENHA, user[0].SENHA);
+            if (!isPasswordValid) {
+                return Erro(new ErrorCustom("Senha incorreta", false, 401));
+            }
+
+            const token = GerarToken(user[0].EMAIL);
+            await this._userRepository.updatToken(user[0].ID, token);
+
+            return Resultado(token);
+        } catch (error) {
+            return Erro(new ErrorCustom("Ocorreu um erro ao fazer login", false, 500));
+        }
     }
 }

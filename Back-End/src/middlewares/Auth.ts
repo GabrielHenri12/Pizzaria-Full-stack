@@ -15,7 +15,7 @@ const options = {
 
 passport.use(new JWTstrategy(options, async (payload, done) => {
     console.log(payload)
-    let user = await User.findOne({ where: { email: payload } });
+    let user = await User.findOne({ where: { EMAIL: payload } });
     if (user) {
         return done(null, user)
     } else {
@@ -26,7 +26,7 @@ passport.use(new JWTstrategy(options, async (payload, done) => {
 export const privateRouts = (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('jwt', (err, user) => {
         if (user) {
-            req.user = user.id
+            req.user = user.ID
             return next()
         } else {
             return res.json(notAuthorized);
