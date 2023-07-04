@@ -1,37 +1,35 @@
 import validator from "validator";
 import {Request, Response, NextFunction} from "express"
 import { UsuarioType } from "../Types/UsuarioTypes";
+import { ErrorCustom } from "../Error/ErrorType";
 
 export const ValidadorRegistro = (req: Request, res: Response, next: NextFunction)=>{
     
     const Usuario: UsuarioType = req.body;
 
     if(!validator.isLength(Usuario.NOME, {min: 3, max: 100})){
-        next(new Error("Tamanho de nome invalido!"))
+        next(new ErrorCustom("Nome: Campo obrigatorio!", false, 401))
     }
     if(!validator.isLength(Usuario.SOBRENOME, {min: 3, max: 100})){
-        next(new Error("Tamanho de nome invalido!"))
+        next(new ErrorCustom("Sobrenome: Campo obrigatorio!", false, 401))
     }
     if(!validator.isLength(Usuario.CPF, {min: 6, max: 20})){
-        next(new Error("Tamanho de senha invalido!"))
+        next(new ErrorCustom("CPF: CPF invalido!", false, 401))
+    }
+    if(!validator.isLength(Usuario.EMAIL, {min: 1})){
+        next(new ErrorCustom("Email: Campo obrigatorio!", false, 401))
     }
     if(!validator.isEmail(Usuario.EMAIL)){
-        next(new Error("Email invalido!"))
+        next(new ErrorCustom("Email: Endereço de Email invalido!", false, 401))
+    }
+    if(!validator.isLength(Usuario.SENHA, {min: 1})){
+        next(new ErrorCustom("Senha: Campo obrigatorio!", false, 401))
     }
     if(!validator.isLength(Usuario.SENHA, {min: 6, max: 20})){
-        next(new Error("Tamanho de senha invalido!"))
-    }
-    if(Usuario.SENHA == null){
-        next(new Error("Senha não pode ser nula!"))
-    }
-    if(!validator.isLength(Usuario.CREDENCIAL, {min: 1, max: 10})){
-        next(new Error("Email invalido!"))
-    }
-    if(!validator.isMobilePhone(Usuario.TELEFONE)){
-        next(new Error("Email invalido!"))
+        next(new ErrorCustom("Senha: Tamanho de senha invalido!", false, 401))
     }
     if(!Usuario.IDADE){
-        next(new Error("Email invalido!"))
+        next(new ErrorCustom("Idade: Campo obrigatorio!", false, 401))
     }
 
     next()
@@ -42,10 +40,10 @@ export const ValidadorLogin = (req: Request, res: Response, next: NextFunction)=
     const Usuario: UsuarioType = req.body;
  
     if(!validator.isEmail(Usuario.EMAIL)){
-        next(new Error("Email invalido!"))
+        return next(new ErrorCustom("Email: Email invalido!", false, 401))
     }
     if(!validator.isLength(Usuario.SENHA, {min: 1})){
-        next(new Error("Senha não pode ser nula!"))
+        return next(new ErrorCustom("Senha: Campo obrigatorio!", false, 401))
     }
     next()
 }
