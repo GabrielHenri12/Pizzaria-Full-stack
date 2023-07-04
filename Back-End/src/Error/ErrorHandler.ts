@@ -1,7 +1,7 @@
-import { ErrorRequestHandler, Request, Response } from "express";
+import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import { ErrorCustom } from "./ErrorType";
 
-export const errorHandler: ErrorRequestHandler = (err: ErrorCustom, req: Request, res: Response) => {
+export const errorHandler: ErrorRequestHandler = (err: ErrorCustom, req: Request, res: Response, next: NextFunction) => {
     err.status ?
         res.status(err.statusCode) :
         res.status(400);
