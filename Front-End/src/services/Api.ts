@@ -6,7 +6,7 @@ let urlLocal = "http://localhost:8080/"
 
 const token = getToken();
 const api = axios.create({
-    baseURL: url,
+    baseURL: urlLocal,
     headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`

@@ -1,6 +1,6 @@
 import { PropsWithChildren, createContext, useReducer } from "react";
 import { initConfigsUser } from "../Reducers/UsuarioReducer";
-import { ActionType, ReducersType, ContextType } from "../Models/ConfigsSystemType";
+import { ActionType, ReducersType, ContextType } from "../Types/ConfigsSystemType";
 
 const initState: ReducersType = {
     usuario: initConfigsUser,

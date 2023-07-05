@@ -1,4 +1,4 @@
-import { ProdutoType } from "../../Models/Produto"
+import { ProdutoType } from "../../Types/Produto"
 import "./CardHome.css"
 
 type PropsType = {

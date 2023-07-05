@@ -1,4 +1,4 @@
-import { ActionType } from "../Models/ConfigsSystemType";
+import { ActionType } from "../Types/ConfigsSystemType";
 
 export type configsUser = {
     token: string,
