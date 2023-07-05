@@ -13,7 +13,7 @@ class UsuarioController {
 
         const Resposta = await _userServices.Registrar(Conversao.ConverterUsuariotypeParaEntidade(user))
         if(Resposta.isResultado()){
-            return res.json({ status: true, data: "Usuário registrado com sucesso" })
+            return res.json({ status: true, value: "Usuário registrado com sucesso" })
         }
         return next(Resposta.valor)
     }
@@ -25,7 +25,7 @@ class UsuarioController {
 
             const Response = await _userServices.Logar(EMAIL, SENHA);
             if(Response.isResultado()){
-                return res.json({ status: true, data: Response.valor });
+                return res.json({ status: true, value: Response.valor });
             }
             next(Response.valor);
         

@@ -22,7 +22,7 @@ class PedidoController {
 
         const response = await _pedidoServicos.Adicionar(NovoPedido);
         if (response.isResultado()) {
-            return res.json({ status: true, data: response.valor })
+            return res.json({ status: true, value: response.valor })
         }
         return next(response.valor)
     };
@@ -38,7 +38,7 @@ class PedidoController {
 
         if (response.isResultado()) {
             console.log(response.valor)
-            return res.json({ status: true, data: response.valor })
+            return res.json({ status: true, value: response.valor })
         }
         return next(response.valor)
 
@@ -54,7 +54,7 @@ class PedidoController {
         const response = await _pedidoServicos.Deletar(ID);
         if (response.isResultado()) {
             console.log(response.valor)
-            return res.json({ status: true, data: response.valor })
+            return res.json({ status: true, value: response.valor })
         }
         return next(response.valor)
     }

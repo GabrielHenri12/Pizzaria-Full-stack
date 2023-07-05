@@ -13,13 +13,10 @@ export class UsuarioServicos {
     }
 
     public async Registrar(UsuarioDados: Usuario): Promise<Callback<ErrorCustom, boolean>> {
-        try{
-            if (!await this._userRepository.ConsulteParcial("EMAIL", UsuarioDados.EMAIL)) {
-                await this._userRepository.Adicionar(UsuarioDados);
-                return Resultado(true);
-            }
-            return Erro(new ErrorCustom("Email já cadastrado", false, 400));
-        } catch {
+        try {
+            await this._userRepository.Adicionar(UsuarioDados);
+            return Resultado(true);
+        } catch(err: any) {
             return Erro(new ErrorCustom("Ocorreu um erro ao se Registrar", false, 500));
         }
     }

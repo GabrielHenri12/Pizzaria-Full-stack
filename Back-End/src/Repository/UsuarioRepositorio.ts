@@ -1,9 +1,8 @@
 import { IUsuarioRepositorio } from "./IUsuarioRepositorio";
 import { UsuarioType } from "../Types/UsuarioTypes";
-import { Conversao } from "../utilities/Conversao";
 import { Usuario } from "../database/models/usuario";
-import bcrypt from "bcryptjs"
 import { ErrorCustom } from "../Error/ErrorType";
+import bcrypt from "bcryptjs"
 
 export class UsuarioRepositorio implements IUsuarioRepositorio {
 
@@ -17,7 +16,7 @@ export class UsuarioRepositorio implements IUsuarioRepositorio {
                 IDADE: UsuarioDados.IDADE,
                 EMAIL: UsuarioDados.EMAIL,
                 SENHA: bcrypt.hashSync(UsuarioDados.SENHA, 10),
-                CREDENCIAL: UsuarioDados.CREDENCIAL,
+                CREDENCIAL: UsuarioDados.CREDENCIAL?? "user",
                 TELEFONE: UsuarioDados.TELEFONE
             })
             return;
@@ -38,7 +37,7 @@ export class UsuarioRepositorio implements IUsuarioRepositorio {
     public async ConsulteParcial(chave: string, valor: string): Promise<Usuario[] | null> {
 
         try {
-            return await Usuario.findAll({ where: { [chave]: valor } });
+            return await Usuario.findAll({ where: { [chave]: valor.toLowerCase() } });
         } catch (Erro) {
             throw new Error("Algo deu errado na ação, confira os logs")
         }

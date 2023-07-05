@@ -31,10 +31,10 @@ Usuario.init({
             this.setDataValue('SOBRENOME', value.toLowerCase());
         }
     },
-    CPF: { type: DataTypes.STRING },
+    CPF: { type: DataTypes.STRING }, 
     CREDENCIAL: {
         type: DataTypes.STRING, set(value: string) {
-            this.setDataValue('CREDENCIAL', value.toLowerCase());
+            this.setDataValue('CREDENCIAL', "usuario");
         }
     },
     TELEFONE: { type: DataTypes.STRING },
