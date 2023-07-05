@@ -2,9 +2,9 @@
 export type Callback<E, R> = ErroClass<E, R> | ResultadoClass<E, R>;
 
 export class ErroClass<E, R>{
-    valor: E;
-    constructor(valor: E) {
-        this.valor = valor;
+    value: E;
+    constructor(value: E) {
+        this.value = value;
     };
 
     isErro(): this is ErroClass<E, R> {
@@ -16,9 +16,9 @@ export class ErroClass<E, R>{
 }
 
 export class ResultadoClass<E, R>{
-    valor: R;
-    constructor(valor: R) {
-        this.valor = valor;
+    value: R;
+    constructor(value: R) {
+        this.value = value;
     };
 
     isErro(): this is ErroClass<E, R> {
