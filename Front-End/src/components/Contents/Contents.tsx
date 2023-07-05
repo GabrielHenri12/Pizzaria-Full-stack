@@ -1,8 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import Cart from '../../views/Cart/Cart'
 import Home from '../../views/Home/Home'
-import Login from '../../views/User/Login'
-import Register from '../../views/User/Register'
+import Usuario from '../../views/User/Usuario'
 import NotFound from '../../views/404/NotFoundPage'
 import './Contents.css'
 
@@ -11,8 +10,7 @@ export default () => {
     <main className='Contents'>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/cadastro" element={<Register/>}/>
+        <Route path="/Usuario/*" element={<Usuario/>}/>
         <Route path="/carrinho" element={<Cart/>}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>

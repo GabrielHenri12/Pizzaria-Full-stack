@@ -2,6 +2,8 @@ import axios from "axios"
 import { getToken } from "./auth"
 
 let url = "https://apigh.azurewebsites.net/";
+let urlLocal = "http://localhost:8080/"
+
 const token = getToken();
 const api = axios.create({
     baseURL: url,
