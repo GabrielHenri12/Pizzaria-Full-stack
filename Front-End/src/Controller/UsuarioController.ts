@@ -1,6 +1,6 @@
 import { Callback, Erro, Resultado } from "../Error/Callback";
 import { ErrorCustom } from "../Error/ErrorType";
-import { UsuarioType } from "../Models/Usuario";
+import { UsuarioType } from "../Types/Usuario";
 import api from "../services/Api";
 
 
