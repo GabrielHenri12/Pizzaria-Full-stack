@@ -3,6 +3,7 @@ import './App.css'
 import Contents from './components/Contents/Contents'
 import Header from './components/header/Header'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import ContextProvider from './Contexts/Context'
 
 const queryClient = new QueryClient()
 
@@ -11,8 +12,10 @@ export default () => {
     <div className='App'>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <Header />
-          <Contents />
+          <ContextProvider>
+            <Header />
+            <Contents />
+          </ContextProvider>
         </QueryClientProvider>
       </BrowserRouter>
     </div>
