@@ -22,9 +22,9 @@ class PedidoController {
 
         const response = await _pedidoServicos.Adicionar(NovoPedido);
         if (response.isResultado()) {
-            return res.json({ status: true, value: response.valor })
+            return res.json({ status: true, value: response.value })
         }
-        return next(response.valor)
+        return next(response.value)
     };
 
     public static async ConsultePorUsuario(req: Request, res: Response, next: NextFunction) {
@@ -37,10 +37,10 @@ class PedidoController {
         const response = await _pedidoServicos.ConsultePorUsuario(id_user);
 
         if (response.isResultado()) {
-            console.log(response.valor)
-            return res.json({ status: true, value: response.valor })
+            console.log(response.value)
+            return res.json({ status: true, value: response.value })
         }
-        return next(response.valor)
+        return next(response.value)
 
     }
 
@@ -53,10 +53,10 @@ class PedidoController {
 
         const response = await _pedidoServicos.Deletar(ID);
         if (response.isResultado()) {
-            console.log(response.valor)
-            return res.json({ status: true, value: response.valor })
+            console.log(response.value)
+            return res.json({ status: true, value: response.value })
         }
-        return next(response.valor)
+        return next(response.value)
     }
 }
 
