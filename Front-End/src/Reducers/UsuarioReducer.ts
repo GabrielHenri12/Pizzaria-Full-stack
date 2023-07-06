@@ -1,4 +1,4 @@
-import { ActionType } from "../Types/ConfigsSystemType";
+import { ActionType } from "../Types/StateGlobalTypes";
 
 export type configsUser = {
     token: string,
@@ -10,9 +10,10 @@ export const initConfigsUser: configsUser = {
     nome: ""
 };
 
-export const UsuarioReducer = (state: configsUser, action: ActionType)=>{
-    switch(action.type){
-        case "Login": 
-            return {...state, token: action.payload.token}
+export const UsuarioReducer = (state: configsUser, action: ActionType) => {
+    switch (action.type) {
+        case "Login":
+            return { ...state, token: action.payload.token }
     }
+    return state;
 }

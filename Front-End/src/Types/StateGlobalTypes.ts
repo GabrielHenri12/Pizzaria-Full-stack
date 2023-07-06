@@ -7,11 +7,11 @@ export type ActionType = {
     }
 };
 
-export type ReducersType = {
+export type initStateType = {
     usuario: configsUser;
 };
 
 export type ContextType = {
-    state: ReducersType;
+    state: initStateType;
     dispatch: React.Dispatch<ActionType>;
 }

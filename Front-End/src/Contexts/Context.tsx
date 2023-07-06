@@ -1,27 +1,31 @@
 import { PropsWithChildren, createContext, useReducer } from "react";
-import { initConfigsUser } from "../Reducers/UsuarioReducer";
-import { ActionType, ReducersType, ContextType } from "../Types/ConfigsSystemType";
+import { initConfigsUser, UsuarioReducer } from "../Reducers/UsuarioReducer";
+import { ActionType, initStateType, ContextType } from "../Types/StateGlobalTypes";
 
-const initState: ReducersType = {
+const initState: initStateType = {
     usuario: initConfigsUser,
 };
 
-const MyContext = createContext<ContextType>({
+export const MyContext = createContext<ContextType>({
     state: initState,
-    dispatch: () => { },
+    dispatch: () => null,
 });
 
-const MainReducer = (state: ReducersType, action: ActionType) => {
+const MainReducer = (state: initStateType, action: ActionType) => {
     return {
-        usuario: state.usuario,
-    };
+        usuario: UsuarioReducer(state.usuario, action),
+    }
 };
 
-export const ContextProvider = ({ children }: PropsWithChildren<{}>) => {
+
+const ContextProvider = ({ children }: PropsWithChildren) => {
     const [state, dispatch] = useReducer(MainReducer, initState);
+
     return (
         <MyContext.Provider value={{ state, dispatch }}>
             {children}
         </MyContext.Provider>
     );
 };
+
+export default ContextProvider;
