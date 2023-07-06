@@ -20,7 +20,7 @@ export const ValidadorRegistro = async (req: Request, res: Response, next: NextF
     if (!validator.isLength(NovoUsuario.SOBRENOME, { min: 3, max: 100 })) {
         next(new ErrorCustom("Sobrenome: Campo obrigatorio!", false, 401))
     }
-    if (!validator.isLength(NovoUsuario.CPF, { min: 6, max: 20 })) {
+    if (!validator.isLength(NovoUsuario.CPF, { min: 11, max: 11 })) {
         next(new ErrorCustom("CPF: CPF invalido!", false, 401))
     }
     if (!validator.isLength(NovoUsuario.EMAIL, { min: 1 })) {
