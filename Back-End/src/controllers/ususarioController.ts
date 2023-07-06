@@ -12,23 +12,23 @@ class UsuarioController {
         const _userServices = new UsuarioServicos(userRepository)
 
         const Resposta = await _userServices.Registrar(Conversao.ConverterUsuariotypeParaEntidade(user))
-        if(Resposta.isResultado()){
+        if (Resposta.isResultado()) {
             return res.json({ status: true, value: "Usuário registrado com sucesso" })
         }
-        return next(Resposta.valor)
+        return next(Resposta.value)
     }
 
     public static async Logar(req: Request, res: Response, next: NextFunction) {
-        const {EMAIL, SENHA} = req.body;
+        const { EMAIL, SENHA } = req.body;
         const userRepository = new UsuarioRepositorio;
         const _userServices = new UsuarioServicos(userRepository);
 
-            const Response = await _userServices.Logar(EMAIL, SENHA);
-            if(Response.isResultado()){
-                return res.json({ status: true, value: Response.valor });
-            }
-            next(Response.valor);
-        
+        const Response = await _userServices.Logar(EMAIL, SENHA);
+        if (Response.isResultado()) {
+            return res.json({ status: true, value: Response.value });
+        }
+        next(Response.value);
+
     }
 }
 
